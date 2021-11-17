@@ -10,3 +10,4 @@ class User(AbstractUser):
                             format='JPEG',
                             options={'quality': 100}
                 )
+

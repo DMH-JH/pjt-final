@@ -18,17 +18,14 @@ class Movie(models.Model):
     poster_path = models.CharField(max_length=300)
     popularity = models.FloatField()
 
-# Rank를 중계 테이블로 생성 Or M:N 필드 + 중계 테이블로 생성할지 
 # n번 유저가 m번 영화의 평점을 x점으로 매김
-# Vote
 class Rank(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-    rank = models.PositiveIntegerField()
+    rating = models.PositiveIntegerField()
 
-
-class Review(models.Model):
+class Movie_Review(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
