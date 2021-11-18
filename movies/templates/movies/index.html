@@ -1,4 +1,8 @@
-<h1>index</h1>
-{% for movie in movies %}
-  <p><a href="{% url 'movies:detail' movie.pk %}">{{ movie.title }}</a></p>
-{% endfor %}
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>index</h1>
+  {% for movie in movies %}
+    <p><a href="{% url 'movies:detail' movie.pk %}">{{ movie.title }}</a></p>
+  {% endfor %}
+{% endblock  %}
