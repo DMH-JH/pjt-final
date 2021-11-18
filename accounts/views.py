@@ -4,7 +4,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.views.decorators.http import require_POST
-from .forms import CustomUserChangeForm, CustomUserCreationForm
+from .forms import CustomUserCreationForm
 
 
 # Create your views here.
