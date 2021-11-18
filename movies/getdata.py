@@ -55,8 +55,10 @@ for num in popular_ids:
 
         movie_list.append(movie_data)
 
-print(movie_list[0])
-# print('추출 데이터 수:', len(movie_list))
+# print(movie_list[0])
+print('추출 데이터 수:', len(movie_list))
+with open('movie_data.json','w',encoding="utf-8") as make_file:
+    json.dump(movie_list, make_file, ensure_ascii=False, indent='\t')
 
 
 ## 디버깅용 코드
