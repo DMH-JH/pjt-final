@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>index</h1>
+  {% if request.user.is_authenticated %}
+    <img src="{{ user.profile_img.url }}" alt="">
+    <h3>{{ user.profile_img }}</h3>
+  {% else %}
+    <h3>로그인 하지 않음</h3>
+  {% endif %}
+
+  <br>
+  {% comment %} {% for review in reviews %}
+    <h3><a href="{% url 'community:detail' review.pk %}">{{ review.title }}</a></h3>
+    <hr>
+  {% endfor %} {% endcomment %}
+{% endblock content %}
