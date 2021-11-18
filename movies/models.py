@@ -12,9 +12,9 @@ class Movie(models.Model):
     original_title = models.CharField(max_length=100)
     original_language = models.CharField(max_length=30)
     overview = models.TextField()
-    release_date = models.DateTimeField()
+    release_date = models.DateField()
     runtime = models.IntegerField()
-    video_id = models.CharField(max_length=200)
+    video_url = models.CharField(max_length=200)
     poster_path = models.CharField(max_length=300)
     popularity = models.FloatField()
 
