@@ -13,7 +13,7 @@ def signup(request):
         form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('community:index')
+            return redirect('accounts:login')
     else:
         form = CustomUserCreationForm()
     
@@ -27,7 +27,7 @@ def login(request):
         form = AuthenticationForm(request, request.POST)
         if form.is_valid():
             auth_login(request, form.get_user())
-            # return redirect(request.GET.get('next') or 'community:index')
+            return redirect(request.GET.get('next') or 'community:index')
     else:
         form = AuthenticationForm()
 
@@ -40,6 +40,6 @@ def login(request):
 def logout(request):
     if request.user.is_authenticated:
         auth_logout(request)
-        # return redirect('community:index')
+        return redirect('community:index')
         
 

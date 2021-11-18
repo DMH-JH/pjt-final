@@ -4,7 +4,6 @@
   <h1>index</h1>
   {% if request.user.is_authenticated %}
     <img src="{{ user.profile_img.url }}" alt="">
-    <h3>{{ user.profile_img }}</h3>
   {% else %}
     <h3>로그인 하지 않음</h3>
   {% endif %}
