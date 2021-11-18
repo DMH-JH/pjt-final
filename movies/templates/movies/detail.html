@@ -1,0 +1,20 @@
+<h1>detail</h1>
+<p>{{ movie.title }}</p>
+<p>{{ movie.overview }}</p>
+
+{% if reviews|length %}
+  <p><b>{{ reviews|length }}개의 댓글이 있습니다.</b></p>
+{% endif %}
+{% for review in reviews %}
+  <div>
+    {{ review.user }} - {{ review.content }}
+  </div>
+{% empty %}
+  <p><b>리뷰가 없어요..</b></p>
+{% endfor %}
+
+<form action="{% url 'movies:create_review' movie.pk %}" method="POST">
+  {% csrf_token %}
+  {{ review_form }}
+  <input type="submit">
+</form>
