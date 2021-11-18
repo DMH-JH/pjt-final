@@ -32,7 +32,7 @@ for num in popular_ids:
     # 빈값이 있는 경우 스킵
     if len(data['overview']) > 10 and len(data['poster_path']) > 10\
          and data['runtime'] and data['videos']['results']:
-        print(num)
+        # print(num)
 
         movie_data['id'] = data['id']
         movie_data['title'] = data['title']
@@ -55,8 +55,8 @@ for num in popular_ids:
 
         movie_list.append(movie_data)
 
-# print(movie_list[0])
-print('추출 데이터 수:', len(movie_list))
+print(movie_list[0])
+# print('추출 데이터 수:', len(movie_list))
 
 
 ## 디버깅용 코드
