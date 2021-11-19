@@ -14,21 +14,10 @@ def index(request):
     }
     return render(request, 'movies/index.html', context)
 
-@require_GET
+
 def detail(request, movie_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
-    review_from = ReviewForm()
-    reviews = movie.movie_review_set.all()
     
-    context = {
-        'movie': movie,
-        'review_form': review_from,
-        'reviews': reviews,
-    }
-    return render(request, 'movies/detail.html', context)
-
-
-def create_review(request, movie_pk):
     if request.method == 'POST':
         review_form = ReviewForm(request.POST)
         if review_form.is_valid():
@@ -40,8 +29,9 @@ def create_review(request, movie_pk):
     else:
         review_form = ReviewForm()
         reviews = Movie_Review.objects.filter(movie_id=movie_pk)
-            
+    
     context = {
+        'movie': movie,
         'review_form': review_form,
         'reviews': reviews,
     }
