@@ -1,20 +1,29 @@
-<h1>detail</h1>
-<p>{{ movie.title }}</p>
-<p>{{ movie.overview }}</p>
+{% extends 'base.html' %}
 
-{% if reviews|length %}
-  <p><b>{{ reviews|length }}개의 댓글이 있습니다.</b></p>
-{% endif %}
-{% for review in reviews %}
-  <div>
-    {{ review.user }} - {{ review.content }}
-  </div>
-{% empty %}
-  <p><b>리뷰가 없어요..</b></p>
-{% endfor %}
+{% block content %}
+  <h1>detail</h1>
+  <p>{{ movie.title }}</p>
+  <p>{{ movie.overview }}</p>
 
-<form action="{% url 'movies:create_review' movie.pk %}" method="POST">
-  {% csrf_token %}
-  {{ review_form }}
-  <input type="submit">
-</form>
+  {% if reviews|length %}
+    <p><b>{{ reviews|length }}개의 댓글이 있습니다.</b></p>
+  {% endif %}
+  {% for review in reviews %}
+    <div>
+      <{{review.pk}}> {{ review.user }} - {{ review.content }}
+      <a href="{% url 'movies:update_review' movie.pk review.pk %}">수정</a>
+      <form action="{% url 'movies:delete_review' movie.pk review.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="삭제">
+      </form>
+    </div>
+  {% empty %}
+    <p><b>리뷰가 없어요..</b></p>
+  {% endfor %}
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ review_form }}
+    <input type="submit">
+  </form>
+{% endblock  %}
