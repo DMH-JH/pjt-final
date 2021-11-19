@@ -5,12 +5,24 @@
   <p>{{ movie.title }}</p>
   <p>{{ movie.overview }}</p>
 
+  
+  {% if rank|length %}
+    <p>업데이트</p>
+  {% else %}
+    <form action="{% url 'movies:rank_create' movie.pk %}" method="POST">
+      {% csrf_token %}
+      {{ rank_form }}
+      <input type="submit">
+    </form>
+  {% endif %}
+
+
   {% if reviews|length %}
     <p><b>{{ reviews|length }}개의 댓글이 있습니다.</b></p>
   {% endif %}
   {% for review in reviews %}
     <div>
-      <{{review.pk}}> {{ review.user }} - {{ review.content }}
+      {{ review.user }} - {{ review.content }}
       <a href="{% url 'movies:update_review' movie.pk review.pk %}">수정</a>
       <form action="{% url 'movies:delete_review' movie.pk review.pk %}" method="POST">
         {% csrf_token %}

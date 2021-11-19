@@ -1,5 +1,7 @@
     {% if request.user.is_authenticated %}
       <h3>Hello, {{ user.username }}</h3>
+      <a href="{% url 'movies:index' %}">영화목록</a>
+      <a href="{% url 'community:index' %}">커뮤니티</a>
       <a href="{% url 'accounts:profile' user.username %}">내 프로필</a>
       <form action="{% url 'accounts:logout' %}" method="POST">
         {% csrf_token %}
