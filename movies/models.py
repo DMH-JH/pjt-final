@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.conf import settings
 
 # Create your models here.
@@ -23,7 +24,7 @@ class Rank(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
-    rating = models.PositiveIntegerField()
+    rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)])
 
 class Movie_Review(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)

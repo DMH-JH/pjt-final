@@ -1,41 +1,117 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
-  <h1>detail</h1>
-  <p>{{ movie.title }}</p>
-  <p>{{ movie.overview }}</p>
+  <br>
 
-  
-  {% if rank|length %}
-    <p>업데이트</p>
-  {% else %}
-    <form action="{% url 'movies:rank_create' movie.pk %}" method="POST">
-      {% csrf_token %}
-      {{ rank_form }}
-      <input type="submit">
-    </form>
-  {% endif %}
+  <div class="row">
+    <div class="col-4">
+      <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}"
+        class="img-thumbnail" alt="..."
+      >
+      <a
+        href="https://www.youtube.com/embed/IrQt_aSddJY"
+      >
+      Trailer
+      </a>
+      {% comment %} {% include 'movies/_modal.html' %} {% endcomment %}
+    </div>
 
+    <div class="col-8">
+      <h1><b>{{ movie.title }}</b></h1>
+      <p class="text-muted">
+        {{ movie.release_date|date:"Y" }} ・ 
+        {% for genre in genres %}
+          {{ genre.name }}
+        {% endfor %} ・ 
+        {{ movie.original_language }}
+      </p>
+      <p>{{ movie.popularity }}</p>
+      {% comment %} <input type="rating" name="rank" value="4" required="" id="id_rank" min="0" max="5" step="1" style="display: none;">
+      <div id="star_id_rank" class="rateit rateit-bg" data-rateit-backingfld="#id_rank">
+      </div> {% endcomment %}
+      <p>{{ rank.user }} - {{ rank.rating }}</p>
+      {% if rank %}
+        <p>update</p>
+        <form action="{% url 'movies:rank_update' movie.pk rank.pk %}" method="POST">
+          {% csrf_token %}
+          {{ rank_form }}
+          <input type="submit">
+        </form>
+        <form action="{% url 'movies:rank_delete' movie.pk rank.pk %}" method="POST">
+          {% csrf_token %}
+          <input type="submit" value="평점삭제">
+        </form>
+        
 
-  {% if reviews|length %}
-    <p><b>{{ reviews|length }}개의 댓글이 있습니다.</b></p>
-  {% endif %}
-  {% for review in reviews %}
-    <div>
-      {{ review.user }} - {{ review.content }}
-      <a href="{% url 'movies:update_review' movie.pk review.pk %}">수정</a>
-      <form action="{% url 'movies:delete_review' movie.pk review.pk %}" method="POST">
+      {% else %}
+        <p>create</p>
+        <form action="{% url 'movies:rank_create' movie.pk %}" method="POST">
+          {% csrf_token %}
+          {{ rank_form }}
+          <input type="submit">
+        </form>
+      {% endif %}
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-8">
+      <h5><b>기본 정보</b></h5>
+      <p>{{ movie.original_title }}</p>
+      <p>
+        {{ movie.release_date }} ・ 
+        {% for genre in genres %}
+          {{ genre.name }}
+        {% endfor %} ・ 
+        {{ movie.original_language }}
+      </p>
+      <p>{{ movie.runtime }}분</p>
+      <p>{{ movie.overview }}</p>
+
+      <hr>
+      <h5><b>리뷰</b></h5>
+      {% if reviews|length %}
+        <p class="text-muted"><b>{{ reviews|length }}개의 댓글이 있습니다.</b></p>
+      {% endif %}
+      <div class="card border-0 bg-secondary bg-opacity-25">
+        {% for review in reviews %}
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <b>{{ review.user }}</b>
+              </div>
+              <div class="col text-end px-3">
+                {{ rank.rating}}
+              </div>
+                <p>{{ review.content }}</p>
+            </div>
+            <div>
+              <small class="text-muted">작성시간:{{ review.created_at|naturaltime }}</small>
+              <small class="text-muted">마지막 수정:{{ review.updated_at|naturaltime }}</small>
+            </div>
+            <a href="{% url 'movies:update_review' movie.pk review.pk %}">수정</a>
+            <form action="{% url 'movies:delete_review' movie.pk review.pk %}" method="POST">
+              {% csrf_token %}
+              <input type="submit" value="삭제">
+            </form>
+          </div>
+        {% empty %}
+          <p><b>아직 리뷰가 없어요..</b></p>
+        {% endfor %}
+      </div>
+
+      <form action="" method="POST">
         {% csrf_token %}
-        <input type="submit" value="삭제">
+        {{ review_form.as_p }}
+        <input type="submit">
       </form>
     </div>
-  {% empty %}
-    <p><b>리뷰가 없어요..</b></p>
-  {% endfor %}
-
-  <form action="" method="POST">
-    {% csrf_token %}
-    {{ review_form }}
-    <input type="submit">
-  </form>
+  </div>
 {% endblock  %}
+
+
+{% block script %}
+{% endblock script %}

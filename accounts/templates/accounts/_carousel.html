@@ -1,0 +1,43 @@
+<div class="container text-center my-3">
+    <div class="row mx-auto my-auto">
+        <div id="recipeCarousel" class="carousel slide w-100" data-ride="carousel">
+            <div class="carousel-inner w-100" role="listbox">
+              {% for rank in person.rank_set.all %}
+                <div class="carousel-item active">
+                    <div class="col-md-3">
+                        <div class="card card-body">
+                          <img src="https://image.tmdb.org/t/p/original/{{ rank.movie.poster_path }}" width="100" height="130" alt="">
+                        </div>
+                    </div>
+                </div>
+              {% endfor %}
+            <a class="carousel-control-prev w-auto" href="#recipeCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+            </a>
+            <a class="carousel-control-next w-auto" href="#recipeCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon bg-dark border border-dark rounded-circle" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+{% block script %}
+<script>
+let items = document.querySelectorAll('.carousel .carousel-item')
+
+items.forEach((el) => {
+    // number of slides per carousel-item
+    const minPerSlide = 4
+    let next = el.nextElementSibling
+    for (var i=1; i<minPerSlide; i++) {
+        if (!next) {
+            // wrap carousel by using first child
+            next = items[0]
+        }
+        let cloneChild = next.cloneNode(true)
+        el.appendChild(cloneChild.children[0])
+        next = next.nextElementSibling
+    }
+})
+</script>
+{% endblock script %}

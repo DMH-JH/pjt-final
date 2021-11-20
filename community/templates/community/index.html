@@ -1,19 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Articles</h1>
+  <br>
+  <h3 class="text-center"><b>🎥영화 게시판🎬</b></h3>
   {% if request.user.is_authenticated %}
-    <a href="{% url 'community:create' %}">[CREATE]</a>
+    <a href="{% url 'community:create' %}">게시물 작성</a>
   {% else %}
     <a href="{% url 'accounts:login' %}">[새 글을 작성하려면 로그인하세요.]</a>
   {% endif %}
   <hr>
   {% for article in articles %}
-    <p>작성자 : {{ article.user }}</p>
-    <p>글 번호 : {{ article.pk }}</p>
-    <p>글 제목 : {{ article.title }}</p>
-    <p>글 내용 : {{ article.content }}</p>
-    <a href="{% url 'community:detail' article.pk %}">[DETAIL]</a>
+    <div><a href="{% url 'community:detail' article.pk %}" class="text-decoration-none text-body">
+      <b>{{ article.user }}</b>&nbsp;&nbsp;
+      <small class="text-muted">{{ article.created_at|date:'n/j H:i' }}</small>
+      <p>{{ article.title }}</p>
+      <p>{{ article.content }}</p>
+    </div>
     <hr>
   {% endfor %}
 {% endblock content %}
