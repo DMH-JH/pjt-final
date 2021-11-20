@@ -1,28 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>{{ person.username }}의 프로필 페이지</h1>
+  <br>
   {% comment %} 
   img 객체 안의 url을 출력 jpg를 url로 가져가게끔 .url을 붙임
   {% endcomment %}
-  <img src="{{ person.profile_img.url }}" alt="">
+  <img src="{{ person.profile_img.url }}" alt=""
+    class="border rounded-circle mx-auto d-block"
+    height="200"
+  >
+  <br>
+  <h2 class="text-center"><b>{{ person.username }}</b></h2>
   <hr>
 
-  <h2>{{ person.username }}가 본 영화</h2>
-  {% for rank in person.rank_set.all %}
-    <div>{{ rank.movie.title }}</div>
-    <img src="https://image.tmdb.org/t/p/original/{{ rank.movie.poster_path }}" width="300" height="300" alt="">
-  {% endfor %}
+  <h3>{{ person.username }}가 본 영화</h3>
+  {% comment %} {% include 'accounts/_carousel.html' %} {% endcomment %}
+  {% comment %} <div class="row row-cols-5">
+    {% for rank in person.rank_set.all %}
+      {{ rank.movie.title }}
+      <img src="https://image.tmdb.org/t/p/original/{{ rank.movie.poster_path }}" width="100" height="130" alt="">
+    {% endfor %}
+  </div> {% endcomment %}
   <hr>
 
-  <h2>{{ person.username }}가 작성한 게시글</h2>
+  <h3>{{ person.username }}가 작성한 게시글</h3>
   {% for article in person.article_set.all %}
     <div>{{ article.title }}</div>
   {% endfor %}
 
   <hr>
 
-  <h2>{{ person.username }}가 작성한 댓글</h2>
+  <h3>{{ person.username }}가 작성한 댓글</h3>
   {% for comment in person.comment_set.all %}
     <div>{{ comment.content }}</div>
   {% endfor %}

@@ -1,0 +1,21 @@
+<div class="col">
+  <div class="card h-100 text-center">
+    <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}"
+      class="card-img-top img-thumbnail"
+      alt="..."
+    >
+    <div class="card-body">
+      <b class="card-title">{{ movie.title }}</b>
+      <p class="card-text"></p>
+      <a href="{% url 'movies:detail' movie.pk %}">See more</a>
+    </div>
+  </div>
+</div>
+
+<style>
+.card-img-top {
+  width: 180px;
+  height: 28vw;
+  object-fit: cover;
+}
+</style>

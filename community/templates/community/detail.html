@@ -1,32 +1,48 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
-  <h2>DETAIL</h2>
-  <h3>{{ article.pk }} 번째 글</h3>
+  <a href="{% url 'community:index' %}">게시판으로</a>
+  <br>
+  <br>
+  <h3><b>{{ article.title }}</b></h3>
+  <p><small class="text-muted">{{article.user }} | {{ article.created_at }} | 
+    {% if user == article.user %}
+      <a href="{% url 'community:update' article.pk %}">수정</a> |
+      <a href="#" onclick="document.getElementById('deleteform').submit()">삭제</a>
+      <form id="deleteform" action="{% url 'community:delete' article.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden">
+      </form>
+    {% endif %}
+  </small></p>
+
   <hr>
-  <p>제목 : {{ article.title }}</p>
-  <p>작성자 : {{article.user }}</p>
-  <p>내용 : {{ article.content }}</p>
-  <p>작성시각 : {{ article.created_at }}</p>
-  <p>수정시각 : {{ article.updated_at }}</p>
-  <hr>
-  {% if user == article.user %}
-    <a href="{% url 'community:update' article.pk %}">[UPDATE]</a>
-    <form action="{% url 'community:delete' article.pk %}" method="POST">
-      {% csrf_token %}
-      <input type="submit" value="DELETE">
-    </form>
-  {% endif %}
-  <a href="{% url 'community:index' %}">[back]</a>
-  <hr>
-  <h4>댓글 목록</h4>
-  {% if comments %}
-    <p><b>{{ comments|length }}개의 댓글이 있습니다.</b></p>
-  {% endif %}
+
+  <p>{{ article.content }}</p>
+  
+  <br>
+
+  <p class="text-end"><small class="text-muted">마지막 수정 : {{ article.updated_at }}</small></p>
+  {% comment %} <h4>댓글 목록</h4> {% endcomment %}
+  <p><b>전체 댓글 {{ comments|length }}개</b></p>
+  <hr size="5px">
+  {% comment %} {% if comments %}
+  {% endif %} {% endcomment %}
   <ul>
     {% for comment in comments %}
       <li>
-        {{ comment.user }} - {{ comment.content }} ({{ comment.created_at }})
+        <div class="row">
+          <div class="col-2">
+            {{ comment.user }}
+          </div>
+          <div class="col">
+            {{ comment.content }}
+          </div>
+          <div class="col-2 text-end">
+            <small class="text-muted">{{ comment.created_at|naturaltime }}</small>
+          </div>
+        </div>
         {% if user == comment.user %}
           <form action="{% url 'community:comments_delete' article.pk comment.pk %}" method="POST" class="d-inline">
             {% csrf_token %}
@@ -35,7 +51,7 @@
         {% endif %}
       </li>
     {% empty %}
-      <p>댓글이 없어요..</p>
+      <p>아직 댓글이 없어요..</p>
     {% endfor %}
   </ul>
 
