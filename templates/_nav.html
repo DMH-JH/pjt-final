@@ -1,17 +1,51 @@
-    {% if request.user.is_authenticated %}
-      <h3>Hello, {{ user.username }}</h3>
-      <a href="{% url 'movies:index' %}">영화목록</a>
-      <a href="{% url 'community:index' %}">커뮤니티</a>
-      <a href="{% url 'accounts:profile' user.username %}">내 프로필</a>
-      <form action="{% url 'accounts:logout' %}" method="POST">
-        {% csrf_token %}
-        <input type="submit" value="Logout">
+
+<nav class="navbar sticky-top navbar-expand-md navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <a class="nav-link" href="{% url 'movies:index' %}">영화목록</a>
+        <a class="nav-link" href="{% url 'community:index' %}">커뮤니티</a>
+      </ul>
+
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
-      {% comment %} <form action="{% url 'accounts:delete' %}" method="POST">
-        {% csrf_token %}
-        <input type="submit" value="회원탈퇴">
-      </form> {% endcomment %}
-    {% else %}
-      <a href="{% url 'accounts:login' %}">Login</a>
-      <a href="{% url 'accounts:signup' %}">Signup</a>
-    {% endif %}
+
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdownmenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            tmp
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownmenu">
+            {% if request.user.is_authenticated %}
+              <li><a class="dropdown-item" href="{% url 'accounts:profile' user.username %}">프로필</a></li>
+              <li><a class="dropdown-item" href="#" 
+                onClick="document.getElementById('logoutform').submit()"
+              >
+              Logout
+              </a></li>
+              <form id="logoutform" action="{% url 'accounts:logout' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden">
+              </form>
+              
+              {% comment %} <form action="{% url 'accounts:delete' %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="회원탈퇴">
+              </form> {% endcomment %}
+            {% else %}
+              <a class="dropdown-item" href="{% url 'accounts:login' %}">Login</a>
+              <a class="dropdown-item" href="{% url 'accounts:signup' %}">Signup</a>
+            {% endif %}
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

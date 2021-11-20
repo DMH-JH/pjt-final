@@ -48,9 +48,9 @@ for num in popular_ids:
         movie_data['fields']['genres'] = [x['id'] for x in data['genres']]      
 
         if data['videos']['results'][0]['site'] == 'YouTube':
-            video_url = 'https://www.youtube.com/watch?v='
+            video_url = 'https://www.youtube.com/embed/'
         else:
-            video_url = 'https://vimeo.com/'
+            video_url = 'https://player.vimeo.com/video/'
         video_key = data['videos']['results'][0]['key']
         movie_data['fields']['video_url'] = video_url + video_key
 
