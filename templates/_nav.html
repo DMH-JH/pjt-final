@@ -1,7 +1,7 @@
 
 <nav class="navbar sticky-top navbar-expand-md navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#">Logo</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -19,8 +19,15 @@
 
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdownmenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            tmp
+          <a class="nav-link dropdown-toggle" href="#"
+            id="dropdownmenu" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <img src="{{ user.profile_img.url }}"
+              class="border rounded-circle"
+              alt=""
+              height="40"
+            >
           </a>
           <ul class="dropdown-menu" aria-labelledby="dropdownmenu">
             {% if request.user.is_authenticated %}

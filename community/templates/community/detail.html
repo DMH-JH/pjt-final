@@ -24,31 +24,31 @@
   <br>
 
   <p class="text-end"><small class="text-muted">마지막 수정 : {{ article.updated_at }}</small></p>
-  {% comment %} <h4>댓글 목록</h4> {% endcomment %}
-  <p><b>전체 댓글 {{ comments|length }}개</b></p>
-  <hr size="5px">
-  {% comment %} {% if comments %}
-  {% endif %} {% endcomment %}
-  <ul>
+  <p class="my-2"><b>전체 댓글 <span id="comments-count">{{ comments|length }}</span>개</b></p>
+  {% comment %} <hr size="5px"> {% endcomment %}
+  <ul class="list-group">
     {% for comment in comments %}
-      <li>
+      <li class="comment-{{ article.pk }}-{{ comment.pk }} list-group-item">
         <div class="row">
           <div class="col-2">
-            {{ comment.user }}
+            <img src="{{ comment.user.profile_img.url }}"
+              class="border rounded-circle"
+              alt=""
+              height="20"
+            >
+            <b>{{ comment.user }}</b>
           </div>
           <div class="col">
             {{ comment.content }}
           </div>
-          <div class="col-2 text-end">
-            <small class="text-muted">{{ comment.created_at|naturaltime }}</small>
+          <div class="col-3 text-end">
+            <small class="text-muted">{{ comment.created_at|naturaltime }}&nbsp;
+              {% if user == comment.user %}
+                <i data-article-pk="{{ article.pk }}" data-comment-pk="{{ comment.pk }}" class="far fa-times-circle"></i>
+              {% endif %}&nbsp;
+            </small>
           </div>
         </div>
-        {% if user == comment.user %}
-          <form action="{% url 'community:comments_delete' article.pk comment.pk %}" method="POST" class="d-inline">
-            {% csrf_token %}
-            <input type="submit" value="DELETE">
-          </form>
-        {% endif %}
       </li>
     {% empty %}
       <p>아직 댓글이 없어요..</p>
@@ -66,3 +66,28 @@
     <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요.]</a>
   {% endif %}
 {% endblock content %}
+
+
+{% block script %}
+<script>
+  const deletes = document.querySelectorAll('.fa-times-circle')
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+  deletes.forEach((adelete) => {
+    adelete.addEventListener('click', (event) => {
+      const articlePk = event.target.dataset.articlePk
+      const commentPk = event.target.dataset.commentPk
+      axios.post(`/community/${articlePk}/comments/${commentPk}/delete/`, {}, {
+        headers: { 'X-CSRFToken': csrftoken }
+      })
+        .then((res) => {
+          const singleComment = document.querySelector(`.comment-${articlePk}-${commentPk}`)
+          singleComment.remove()
+
+          const commentsCount = document.querySelector('#comments-count')
+          commentsCount.innerText = commentsCount.innerText - 1
+        })
+    })
+  })
+</script>
+{% endblock script %}

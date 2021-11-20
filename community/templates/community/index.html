@@ -11,6 +11,11 @@
   <hr>
   {% for article in articles %}
     <div><a href="{% url 'community:detail' article.pk %}" class="text-decoration-none text-body">
+      <img src="{{ article.user.profile_img.url }}"
+              class="border rounded-circle"
+              alt=""
+              height="20"
+      >
       <b>{{ article.user }}</b>&nbsp;&nbsp;
       <small class="text-muted">{{ article.created_at|date:'n/j H:i' }}</small>
       <p>{{ article.title }}</p>
