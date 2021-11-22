@@ -3,37 +3,107 @@
 {% block content %}
   <br>
   {% comment %} 
-  img 객체 안의 url을 출력 jpg를 url로 가져가게끔 .url을 붙임
+  출력 jpg를 url로 가져가게끔 img 객체 안의 url에 .url을 붙임
   {% endcomment %}
   <img src="{{ person.profile_img.url }}" alt=""
     class="border rounded-circle mx-auto d-block"
     height="200"
   >
   <br>
-  <h2 class="text-center"><b>{{ person.username }}</b></h2>
+  <div class="row">
+    <br>
+    <h2 class="text-center"><b>{{ person.username }}</b></h2>
+    <p class="text-center text-muted">
+    총 {{ person.rank_set.all.first.movie.runtime }} 분
+    </p>
+  </div>
+  
   <hr>
+  
+  <div class="row">
+    <div class="col-4">
+      <div class="card"><a href="#" role="button"
+        class="text-decoration-none text-body"
+        data-bs-toggle="modal" data-bs-target="#modalMovie"
+      >
+        {% include 'accounts/_modal_movie.html' %}
+        <div class="card-body">
+          <p class="card-title">내가 본 영화</p>
+          <h4 class="card-text text-end"><b>{{ person.rank_set.all.count }}&nbsp;&nbsp;&nbsp;</b>
+        </div>
+      </a></div>
+    </div>
 
-  <h3>{{ person.username }}가 본 영화</h3>
-  {% comment %} {% include 'accounts/_carousel.html' %} {% endcomment %}
-  {% comment %} <div class="row row-cols-5">
-    {% for rank in person.rank_set.all %}
-      {{ rank.movie.title }}
-      <img src="https://image.tmdb.org/t/p/original/{{ rank.movie.poster_path }}" width="100" height="130" alt="">
+    <div class="col-4">
+      <div class="card"><a href="#" role="button"
+        class="text-decoration-none text-body"
+        data-bs-toggle="modal" data-bs-target="#modalArticle"
+      >
+        {% include 'accounts/_modal_article.html' %}
+        <div class="card-body">
+          <p class="card-title">내가 쓴 글</p>
+          <h4 class="card-text text-end"><b>{{ person.article_set.all.count }}&nbsp;&nbsp;&nbsp;</b></h4>
+        </div>
+      </a></div>
+    </div>
+
+    <div class="col-4">
+      <div class="card"><a href="#" role="button"
+        class="text-decoration-none text-body"
+        data-bs-toggle="modal" data-bs-target="#modalComment"
+      >
+        {% include 'accounts/_modal_comment.html' %}
+        <div class="card-body">
+          <p class="card-title">댓글 단 글</p>
+          <h4 class="card-text text-end"><b>{{ person.comment_set.all.count }}&nbsp;&nbsp;&nbsp;</b></h4>
+        </div>
+      </a></div>
+    </div>
+  </div>
+
+  <hr>
+  <br>
+  
+  <div class="card w-100">
+    <div class="card-body">
+      <p class="card-title">평점 분포</p>
+      <h4 class="card-text text-center">(공 란)</h4>
+    </div>
+  </div>
+  
+  <br>
+  
+  <div class="card w-100">
+    <div class="card-body">
+      <p class="card-title">워드 클라우드</p>
+      <h4 class="card-text text-center">(공 란)</h4>
+    </div>
+  </div>
+
+  {% comment %} <div class="row">
+    <h3>{{ person.username }}가 본 영화</h3>
+    {% include 'accounts/_carousel.html' %}
+    <div class="row row-cols-5">
+      {% for rank in person.rank_set.all %}
+        {{ rank.movie.title }}
+        <img src="https://image.tmdb.org/t/p/original/{{ rank.movie.poster_path }}" width="100" height="130" alt="">
+      {% endfor %}
+    </div>
+    <hr>
+
+    <h3>{{ person.username }}가 작성한 게시글</h3>
+    {% for article in person.article_set.all %}
+      <div>{{ article.title }}</div>
     {% endfor %}
+
+    <hr>
+
+    <h3>{{ person.username }}가 작성한 댓글</h3>
+    {% for comment in person.comment_set.all %}
+      <div>{{ comment.content }}</div>
+    {% endfor %}
+
   </div> {% endcomment %}
-  <hr>
-
-  <h3>{{ person.username }}가 작성한 게시글</h3>
-  {% for article in person.article_set.all %}
-    <div>{{ article.title }}</div>
-  {% endfor %}
-
-  <hr>
-
-  <h3>{{ person.username }}가 작성한 댓글</h3>
-  {% for comment in person.comment_set.all %}
-    <div>{{ comment.content }}</div>
-  {% endfor %}
 
   <hr>
 

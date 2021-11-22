@@ -33,12 +33,12 @@
       <p>{{ rank.user }} - {{ rank.rating }}</p>
       {% if rank %}
         <p>update</p>
-        <form action="{% url 'movies:rank_update' movie.pk rank.pk %}" method="POST">
+        <form action="{% url 'movies:update_rank' movie.pk rank.pk %}" method="POST">
           {% csrf_token %}
           {{ rank_form }}
           <input type="submit">
         </form>
-        <form action="{% url 'movies:rank_delete' movie.pk rank.pk %}" method="POST">
+        <form action="{% url 'movies:delete_rank' movie.pk rank.pk %}" method="POST">
           {% csrf_token %}
           <input type="submit" value="평점삭제">
         </form>
@@ -46,7 +46,7 @@
 
       {% else %}
         <p>create</p>
-        <form action="{% url 'movies:rank_create' movie.pk %}" method="POST">
+        <form action="{% url 'movies:create_rank' movie.pk %}" method="POST">
           {% csrf_token %}
           {{ rank_form }}
           <input type="submit">
@@ -76,32 +76,40 @@
       {% if reviews|length %}
         <p class="text-muted"><b>{{ reviews|length }}개의 댓글이 있습니다.</b></p>
       {% endif %}
-      <div class="card border-0 bg-secondary bg-opacity-25">
+      <ul class="list-group list-group-flush">
         {% for review in reviews %}
-          <div class="card-body">
+          <li class="list-group-item">
             <div class="row">
+              <div class="col-1">
+                <img src="{{ review.user.profile_img.url }}"
+                  class="border rounded-circle"
+                  alt=""
+                  height="20"
+                >
+              </div>
+              
               <div class="col">
-                <b>{{ review.user }}</b>
-              </div>
-              <div class="col text-end px-3">
-                {{ rank.rating}}
-              </div>
+                <b>{{ review.user }}</b>&nbsp;
+                {{ rank.rating }}&nbsp;
+                <small class="text-muted">{{ review.created_at|naturaltime }}</small>
                 <p>{{ review.content }}</p>
+              </div>
             </div>
-            <div>
-              <small class="text-muted">작성시간:{{ review.created_at|naturaltime }}</small>
+
+            <div class="text-end">
               <small class="text-muted">마지막 수정:{{ review.updated_at|naturaltime }}</small>
+              <a href="{% url 'movies:update_review' movie.pk review.pk %}">수정</a>
+              <a href="#">삭제</a>
+              <form action="{% url 'movies:delete_review' movie.pk review.pk %}" method="POST">
+                {% csrf_token %}
+                <input type="submit" value="삭제">
+              </form>
             </div>
-            <a href="{% url 'movies:update_review' movie.pk review.pk %}">수정</a>
-            <form action="{% url 'movies:delete_review' movie.pk review.pk %}" method="POST">
-              {% csrf_token %}
-              <input type="submit" value="삭제">
-            </form>
-          </div>
+          </li>
         {% empty %}
           <p><b>아직 리뷰가 없어요..</b></p>
         {% endfor %}
-      </div>
+      </ul>
 
       <form action="" method="POST">
         {% csrf_token %}

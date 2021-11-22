@@ -20,7 +20,7 @@ def index(request):
 def detail(request, movie_pk):
     
     if request.method == 'POST':
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             return redirect('accounts:login')
         review_form = ReviewForm(request.POST)
         if review_form.is_valid():
@@ -87,7 +87,7 @@ def delete_review(request, movie_pk, review_pk):
 
 @login_required
 @require_POST
-def rank_create(request, movie_pk):
+def create_rank(request, movie_pk):
     if request.method == 'POST':
         rank_form = RankForm(request.POST)
         if rank_form.is_valid():
@@ -101,7 +101,7 @@ def rank_create(request, movie_pk):
 
 @login_required
 @require_http_methods(['GET', 'POST'])
-def rank_update(request, movie_pk, rank_pk):
+def update_rank(request, movie_pk, rank_pk):
     rank = get_object_or_404(Rank, pk=rank_pk)
     if request.user == rank.user and request.method == 'POST':
         rank_form = RankForm(request.POST, instance = rank)
@@ -124,7 +124,7 @@ def rank_update(request, movie_pk, rank_pk):
 
 @login_required
 @require_POST
-def rank_delete(request, movie_pk, rank_pk):
+def delete_rank(request, movie_pk, rank_pk):
     movie = get_object_or_404(Movie, pk=movie_pk)
     rank = get_object_or_404(Rank, pk=rank_pk)
     if request.user == rank.user and request.method == 'POST':
