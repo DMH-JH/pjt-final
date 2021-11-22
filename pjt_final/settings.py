@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'django.contrib.humanize',
     'django.forms',
+    'ckeditor',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -49,6 +50,25 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        # 'toolbar': [
+        #     ['Undo', 'Redo',
+        #      '-', 'Bold', 'Italic', 'Underline',
+        #      '-', 'Link', 'Unlink', 'Anchor',
+        #      '-', 'Format',
+        #      '-', 'SpellChecker', 'Scayt',
+        #      '-', 'Maximize',
+        #      '-', 'Language',
+        #     ],
+        # ],
+        'height': '100%',
+        'width': '100%',
+        'toolbarCanCollapse': False,
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

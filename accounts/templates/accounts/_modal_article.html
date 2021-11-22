@@ -1,0 +1,38 @@
+{% load humanize %}
+
+<!-- Modal -->
+<div class="modal fade" id="modalArticle" tabindex="-1" aria-labelledby="modalArticleLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalArticleLabel"><b>내가 쓴 글
+          <span>({{ person.article_set.all|length }})</span>
+        </b></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <ul class="list-group list-group-flush">
+          {% for article in person.article_set.all %}
+            <div>
+            {% comment %} <a href="#" class="text-decoration-none text-body"> {% endcomment %}
+              <img src="{{ article.user.profile_img.url }}"
+                      class="border rounded-circle"
+                      alt=""
+                      height="20"
+              >
+              <b>{{ article.user }}</b>&nbsp;&nbsp;
+              <small class="text-muted">{{ article.created_at|naturaltime }}</small>
+              <p>{{ article.title }}</p>
+              <p>{{ article.content|safe }}</p>
+            {% comment %} </a> {% endcomment %}
+            </div>
+            <hr>
+          {% empty %}
+            <p><b>작성한 글이 없어요..</b></p>
+          {% endfor %}
+      </div>
+
+    </div>
+  </div>
+</div>
