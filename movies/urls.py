@@ -12,4 +12,5 @@ urlpatterns = [
     path('<int:movie_pk>/rank/', views.rank_create, name='rank_create'),
     path('<int:movie_pk>/rank/<int:rank_pk>/update', views.rank_update, name='rank_update'),
     path('<int:movie_pk>/rank/<int:rank_pk>/delete', views.rank_delete, name='rank_delete'),
+    path('worldcup/', views2.worldcup, name="worldcup"),
 ]

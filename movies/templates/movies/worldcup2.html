@@ -2,7 +2,7 @@
 
 {% block content %}
   <h2>WorldCup</h2>
-  <h4>1 / 16</h4>
+  <h4 id="round">1 / 8</h4>
   <h4>내가 선택한 영화: </h4>
   <hr>
   <div class="row">
@@ -55,7 +55,8 @@
             const parent = image1.parentNode
             parent.replaceChild(newImg, image1)
           })
-
+          const round = document.querySelector('#round')
+          round.innerText = `${pageNum} / 8`
           pageNum += 1
         })
     })
