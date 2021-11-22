@@ -54,16 +54,15 @@ INSTALLED_APPS = [
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
     'default': {
-        # 'toolbar': [
-        #     ['Undo', 'Redo',
-        #      '-', 'Bold', 'Italic', 'Underline',
-        #      '-', 'Link', 'Unlink', 'Anchor',
-        #      '-', 'Format',
-        #      '-', 'SpellChecker', 'Scayt',
-        #      '-', 'Maximize',
-        #      '-', 'Language',
-        #     ],
-        # ],
+        'toolbar': [
+            ['Undo', 'Redo',
+             '-', 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript',
+             '-', 'Format',
+             '-', 'SpellChecker', 'Scayt',
+             '-', 'Font', 'FontSize',
+             '-', 'TextColor', 'BGColor',
+            ],
+        ],
         'height': '100%',
         'width': '100%',
         'toolbarCanCollapse': False,
