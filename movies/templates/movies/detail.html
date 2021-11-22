@@ -40,12 +40,12 @@
         <p>update</p>
         <div class="rateit" data-rateit-value="{{ rank.rating }}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
         <p></p>
-        <form class="d-inline" action="{% url 'movies:rank_update' movie.pk rank.pk %}" method="POST">
+        <form class="d-inline" action="{% url 'movies:update_rank' movie.pk rank.pk %}" method="POST">
           {% csrf_token %}
           {{ rank_form }}
           <input type="submit">
         </form>
-        <form class="d-inline" action="{% url 'movies:rank_delete' movie.pk rank.pk %}" method="POST">
+        <form class="d-inline" action="{% url 'movies:delete_rank' movie.pk rank.pk %}" method="POST">
           {% csrf_token %}
           <input type="submit" value="평점삭제" class="d-inline">
         </form>
