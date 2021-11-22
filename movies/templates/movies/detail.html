@@ -9,12 +9,12 @@
       <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}"
         class="img-thumbnail" alt="..."
       >
-      <a
+      {% comment %} <a
         href="https://www.youtube.com/embed/IrQt_aSddJY"
       >
       Trailer
-      </a>
-      {% comment %} {% include 'movies/_modal.html' %} {% endcomment %}
+      </a> {% endcomment %}
+      {% include 'movies/_modal.html' %}
     </div>
 
     <div class="col-8">
@@ -122,4 +122,26 @@
 
 
 {% block script %}
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="js/jquery-1.10.1.min.js"><\/script>')</script>
+  <script src="js/bootstrap.min.js"></script>
+  <script>
+      $('#link').click(function () {
+          const video = document.querySelector('[data-video-url]');
+          const videoUrl = video.getAttribute('data-video-url')
+          const videoId = videoUrl.slice(32 ,videoUrl.length)
+          let src = `https://www.youtube.com/embed/${videoId}`
+          //let src = 'https://www.youtube.com/embed/IrQt_aSddJY'
+          $('#myModal').modal('show');
+          $('#myModal iframe').attr('src', src);
+      });
+
+      $('#myModal').on('hidden.bs.modal', function () {
+        $('#myModal iframe').removeAttr('src');
+      })
+
+      $('#myModal button').click(function () {
+        $('#myModal iframe').removeAttr('src');
+      });
+  </script>
 {% endblock script %}

@@ -1,9 +1,11 @@
 from django.contrib.auth.models import User
 from django.http import request
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import get_list_or_404, redirect, render, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.views.decorators.http import require_POST
+
+from community.models import Comment
 from .forms import CustomUserCreationForm
 from django.contrib.auth import get_user_model
 
@@ -45,6 +47,7 @@ def logout(request):
 
 def profile(request, username):
     person = get_object_or_404(get_user_model(), username=username)
+    
     context = {
         'person': person,
     }

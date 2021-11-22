@@ -19,7 +19,7 @@
       <b>{{ article.user }}</b>&nbsp;&nbsp;
       <small class="text-muted">{{ article.created_at|date:'n/j H:i' }}</small>
       <p>{{ article.title }}</p>
-      <p>{{ article.content }}</p>
+      <p>{{ article.content|safe }}</p>
     </div>
     <hr>
   {% endfor %}
