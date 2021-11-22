@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load humanize %}
-
 {% block content %}
   <br>
 
@@ -27,25 +26,34 @@
         {{ movie.original_language }}
       </p>
       <p>{{ movie.popularity }}</p>
-      {% comment %} <input type="rating" name="rank" value="4" required="" id="id_rank" min="0" max="5" step="1" style="display: none;">
-      <div id="star_id_rank" class="rateit rateit-bg" data-rateit-backingfld="#id_rank">
-      </div> {% endcomment %}
-      <p>{{ rank.user }} - {{ rank.rating }}</p>
+
+      {% comment %} <p>{{ rank.user }} - {{ rank.rating }}</p> {% endcomment %}
+
+
+
+      {% comment %} 
+        Rank
+      {% endcomment %}
+
+
       {% if rank %}
         <p>update</p>
-        <form action="{% url 'movies:rank_update' movie.pk rank.pk %}" method="POST">
+        <div class="rateit" data-rateit-value="{{ rank.rating }}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+        <p></p>
+        <form class="d-inline" action="{% url 'movies:rank_update' movie.pk rank.pk %}" method="POST">
           {% csrf_token %}
           {{ rank_form }}
           <input type="submit">
         </form>
-        <form action="{% url 'movies:rank_delete' movie.pk rank.pk %}" method="POST">
+        <form class="d-inline" action="{% url 'movies:rank_delete' movie.pk rank.pk %}" method="POST">
           {% csrf_token %}
-          <input type="submit" value="평점삭제">
+          <input type="submit" value="평점삭제" class="d-inline">
         </form>
-        
+
 
       {% else %}
         <p>create</p>
+        <div class="rateit" data-rateit-value="{{ rank.rating }}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
         <form action="{% url 'movies:rank_create' movie.pk %}" method="POST">
           {% csrf_token %}
           {{ rank_form }}
@@ -116,7 +124,7 @@
 {% block script %}
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="js/jquery-1.10.1.min.js"><\/script>')</script>
-  <script src="js/bootstrap.min.js"></script>
+  {% comment %} <script src="js/bootstrap.min.js"></script> {% endcomment %}
   <script>
       $('#link').click(function () {
           const video = document.querySelector('[data-video-url]');
@@ -126,14 +134,15 @@
           //let src = 'https://www.youtube.com/embed/IrQt_aSddJY'
           $('#myModal').modal('show');
           $('#myModal iframe').attr('src', src);
-      });
+      })
 
       $('#myModal').on('hidden.bs.modal', function () {
         $('#myModal iframe').removeAttr('src');
-      })
+      });
 
       $('#myModal button').click(function () {
         $('#myModal iframe').removeAttr('src');
       });
+
   </script>
 {% endblock script %}
