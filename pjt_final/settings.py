@@ -41,8 +41,8 @@ INSTALLED_APPS = [
     'imagekit',
     'django_extensions',
     'django.contrib.humanize',
+    'django.forms',
     'ckeditor',
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -162,3 +162,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # custom user model
 AUTH_USER_MODEL = 'accounts.User'
+
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'

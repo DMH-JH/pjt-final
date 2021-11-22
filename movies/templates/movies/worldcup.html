@@ -2,6 +2,7 @@
 
 {% block content %}
   <h2>WorldCup</h2>
+  <h4>1 / 16</h4>
   <h4>내가 선택한 영화: </h4>
   <hr>
   <div class="row">
@@ -18,42 +19,43 @@
   let pageNum = 2
   let seletedMoviePks = []
 
-  const images = document.querySelectorAll('.movie-images')
-  console.log(images)
-  images.forEach((image) => {
+  const parentImages = document.querySelectorAll('.movie-images')
+  parentImages.forEach((image) => {
     image.addEventListener('click', (event) => {
       seletedMoviePks.push(event.target.dataset.moviePk)
-      console.log(seletedMoviePks)
+      // console.log(seletedMoviePks)
       axios({
         method: 'get',
-        url: `/movies/worldcup/?page=${pageNum}`,
-        headers: {'x-requested-with': 'XMLHttpRequest'}
+        url: `/movies/worldcup`,
+        headers: {'x-requested-with': 'XMLHttpRequest'},
+        params: {
+          page: `${pageNum}`,
+          seletedMoviePks: seletedMoviePks[seletedMoviePks.length - 1],
+        }
       })
         .then((res) => {
           const movies = res.data
           moviePk = movies[0].pk
           moviePosterPath = movies[0].fields.poster_path
 
-          const image1 = document.querySelector(`#img-${event.target.dataset.moviePk}`)
-          const newImg = document.createElement('img')
-          newImg.classList.add('img')
-          newImg.src = `https://image.tmdb.org/t/p/original/${moviePosterPath}`
-          newImg.id = `img-${moviePk}`
-          newImg.dataset.moviePk = `${movies[0].pk}`
+          const images = document.querySelectorAll('.img')
 
-          console.log(newImg)
+          images.forEach(function(image, index) {
+            preMoviePk = image.getAttribute('data-movie-pk')
 
-          moviePk2 = movies[1].pk
-          // const image2 = document.querySelector(`#img-${event.target.dataset.moviePk}`)
-          // const newImg = document.createElement('img')
-          // newImg.classList.add('img')
-          // newImg.src = `https://image.tmdb.org/t/p/original/${moviePosterPath}`
-          // newImg.id = `img-${moviePk}`
-          // console.log(newImg)
+            moviePk = movies[index].pk
+            moviePosterPath = movies[index].fields.poster_path
+            const image1 = document.querySelector(`#img-${preMoviePk}`)
+            const newImg = document.createElement('img')
+            newImg.classList.add('img')
+            newImg.src = `https://image.tmdb.org/t/p/original/${moviePosterPath}`
+            newImg.id = `img-${moviePk}`
+            newImg.dataset.moviePk = `${moviePk}`
 
-          // movieDiv.innerHTML = movieHTML
-          const parent = image1.parentNode
-          parent.replaceChild(newImg, image1)
+            const parent = image1.parentNode
+            parent.replaceChild(newImg, image1)
+          })
+
           pageNum += 1
         })
     })
