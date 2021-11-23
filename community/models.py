@@ -9,8 +9,10 @@ class Article(models.Model):
 
     title = models.CharField(max_length=100)
     content = RichTextField()
+    hits = models.PositiveIntegerField(verbose_name='조회수', default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    top_fixed = models.BooleanField(verbose_name='상단고정', default=False)
 
 class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE)

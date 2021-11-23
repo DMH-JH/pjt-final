@@ -7,7 +7,7 @@
   <br>
   <br>
   <h3><b>{{ article.title }}</b></h3>
-  <p><small class="text-muted">{{article.user }} | {{ article.created_at }} | 
+  <p><small class="text-muted">{{ article.user }} | {{ article.created_at }} | 
     {% if user == article.user %}
       <a href="{% url 'community:update' article.pk %}">수정</a> |
       <a href="#" onclick="document.getElementById('deleteform').submit()">삭제</a>
@@ -60,8 +60,10 @@
   {% if request.user.is_authenticated %}
     <form action="{% url 'community:comments_create' article.pk %}" method="POST">
       {% csrf_token %}
-      {% bootstrap_form comment_form show_label=False placeholder=tahnk %}
-      <input type="submit">
+      {% bootstrap_form comment_form show_label=False %}
+      <div class="text-end">
+        <input type="submit" class="btn btn-dark rounded-pill col-4">
+      </div>
     </form>
   {% else %}
     <a href="{% url 'accounts:login' %}">[댓글을 작성하려면 로그인하세요.]</a>

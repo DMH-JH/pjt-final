@@ -14,7 +14,7 @@
     <br>
     <h2 class="text-center"><b>{{ person.username }}</b></h2>
     <p class="text-center text-muted">
-    총 {{ person.rank_set.all.first.movie.runtime }} 분
+    총 {{ runtime_total }} 분
     </p>
   </div>
   
@@ -29,7 +29,7 @@
         {% include 'accounts/_modal_movie.html' %}
         <div class="card-body">
           <p class="card-title">내가 본 영화</p>
-          <h4 class="card-text text-end"><b>{{ person.rank_set.all.count }}&nbsp;&nbsp;&nbsp;</b>
+          <h4 class="card-text text-end"><b>{{ person.rank_set.all|length }}&nbsp;&nbsp;&nbsp;</b>
         </div>
       </a></div>
     </div>
@@ -42,7 +42,7 @@
         {% include 'accounts/_modal_article.html' %}
         <div class="card-body">
           <p class="card-title">내가 쓴 글</p>
-          <h4 class="card-text text-end"><b>{{ person.article_set.all.count }}&nbsp;&nbsp;&nbsp;</b></h4>
+          <h4 class="card-text text-end"><b>{{ person.article_set.all|length }}&nbsp;&nbsp;&nbsp;</b></h4>
         </div>
       </a></div>
     </div>
@@ -55,7 +55,7 @@
         {% include 'accounts/_modal_comment.html' %}
         <div class="card-body">
           <p class="card-title">댓글 단 글</p>
-          <h4 class="card-text text-end"><b>{{ person.comment_set.all.count }}&nbsp;&nbsp;&nbsp;</b></h4>
+          <h4 class="card-text text-end"><b>{{ cmt_articles|length }}&nbsp;&nbsp;&nbsp;</b></h4>
         </div>
       </a></div>
     </div>

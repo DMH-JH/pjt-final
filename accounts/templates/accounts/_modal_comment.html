@@ -6,14 +6,14 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="modalCommentLabel"><b>댓글 단 글
-          <span>({{ person.article_set.all|length }})</span>
+          <span>({{ cmt_articles|length }})</span>
         </b></h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body">
         <ul class="list-group list-group-flush">
-          {% for article in person.article_set.all %}
+          {% for article in cmt_articles %}
             <div>
             {% comment %} <a href="#" class="text-decoration-none text-body"> {% endcomment %}
               <img src="{{ article.user.profile_img.url }}"

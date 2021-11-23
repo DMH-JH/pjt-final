@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load bootstrap5 %}
+
 {% block content %}
   <br>
 
@@ -80,37 +82,52 @@
 
       <hr>
       <h5><b>리뷰</b></h5>
-      {% if reviews|length %}
-        <p class="text-muted"><b>{{ reviews|length }}개의 댓글이 있습니다.</b></p>
+      {% if movie.movie_review_set.all|length %}
+        <p class="text-muted"><b><span id="review-count">{{ movie.movie_review_set.all|length }}</span>개의 리뷰가 있습니다.</b></p>
       {% endif %}
+
+      <form action="" method="POST">
+        {% csrf_token %}
+        {% bootstrap_form review_form show_label=False %}
+        <div class="text-end">
+          <input type="submit" class="btn btn-dark rounded-pill col-6">
+        </div>
+      </form>
+
       <ul class="list-group list-group-flush">
-        {% for review in reviews %}
-          <li class="list-group-item">
+        {% for review in movie.movie_review_set.all %}
+          <li class="list-group-item review-{{ movie.pk }}-{{ review.pk }}">
             <div class="row">
-              <div class="col-1">
+              <div class="mb-2">
                 <img src="{{ review.user.profile_img.url }}"
                   class="border rounded-circle"
                   alt=""
-                  height="20"
+                  height="30"
                 >
-              </div>
-              
-              <div class="col">
                 <b>{{ review.user }}</b>&nbsp;
                 {{ rank.rating }}&nbsp;
                 <small class="text-muted">{{ review.created_at|naturaltime }}</small>
+              </div>
+              
+              <div class="row">
                 <p>{{ review.content }}</p>
               </div>
             </div>
 
             <div class="text-end">
-              <small class="text-muted">마지막 수정:{{ review.updated_at|naturaltime }}</small>
-              <a href="{% url 'movies:update_review' movie.pk review.pk %}">수정</a>
-              <a href="#">삭제</a>
-              <form action="{% url 'movies:delete_review' movie.pk review.pk %}" method="POST">
-                {% csrf_token %}
-                <input type="submit" value="삭제">
-              </form>
+              <small class="text-muted">
+              마지막 수정: {{ review.updated_at|naturaltime }}&nbsp;
+
+              {% if user == review.user %}
+              <a href="{% url 'movies:update_review' movie.pk review.pk %}" class="text-decoration-none text-muted">
+                <i class="far fa-edit">
+                </i>
+              </a>
+              <i data-movie-pk="{{ movie.pk }}" data-review-pk="{{ review.pk }}"
+                class="far review-delete fa-times-circle"></i>
+              </small>
+              {% endif %}
+
             </div>
           </li>
         {% empty %}
@@ -118,13 +135,9 @@
         {% endfor %}
       </ul>
 
-      <form action="" method="POST">
-        {% csrf_token %}
-        {{ review_form.as_p }}
-        <input type="submit">
-      </form>
     </div>
   </div>
+
 {% endblock  %}
 
 
@@ -151,5 +164,24 @@
         $('#myModal iframe').removeAttr('src');
       });
 
+  const deletes = document.querySelectorAll('.review-delete')
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+  deletes.forEach((adelete) => {
+    adelete.addEventListener('click', (event) => {
+      const moviePk = event.target.dataset.moviePk
+      const reviewPk = event.target.dataset.reviewPk
+      axios.post(`/movies/${moviePk}/review/${reviewPk}/delete/`, {}, {
+        headers: { 'X-CSRFToken': csrftoken }
+      })
+        .then((res) => {
+          const singleReview = document.querySelector(`.review-${moviePk}-${reviewPk}`)
+          singleReview.remove()
+
+          const reviewCount = document.querySelector('#review-count')
+          reviewCount.innerText = reviewCount.innerText - 1
+        })
+    })
+  })
   </script>
 {% endblock script %}
