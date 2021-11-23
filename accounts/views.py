@@ -56,10 +56,13 @@ def profile(request, username):
         runtime_total += Movie.objects.get(id=r).runtime
     distincts = Comment.objects.filter(user=person).values('article_id').order_by('-article').distinct()
     articles = Article.objects.filter(id__in=[d['article_id'] for d in distincts])
+    recommended_movies = person.recommended_movie.all()
+
     context = {
         'person': person,
         'ranks': ranks,
         'cmt_articles': articles,
         'runtime_total': runtime_total,
+        'recommended_movies': recommended_movies,
     }
     return render(request, 'accounts/profile.html', context)
