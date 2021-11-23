@@ -5,9 +5,11 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from django.views.decorators.http import require_POST
 
-from community.models import Comment
+from community.models import Comment, Article
+from movies.models import Rank, Movie
 from .forms import CustomUserCreationForm
 from django.contrib.auth import get_user_model
+from django.db.models import Sum
 
 # Create your views here.
 def signup(request):
@@ -47,8 +49,17 @@ def logout(request):
 
 def profile(request, username):
     person = get_object_or_404(get_user_model(), username=username)
-    
+    ranks = Rank.objects.filter(user=person).values('movie_id')
+    ranks = [r['movie_id'] for r in ranks]
+    runtime_total = 0
+    for r in ranks:
+        runtime_total += Movie.objects.get(id=r).runtime
+    distincts = Comment.objects.filter(user=person).values('article_id').order_by('-article').distinct()
+    articles = Article.objects.filter(id__in=[d['article_id'] for d in distincts])
     context = {
         'person': person,
+        'ranks': ranks,
+        'cmt_articles': articles,
+        'runtime_total': runtime_total,
     }
     return render(request, 'accounts/profile.html', context)

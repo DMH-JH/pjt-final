@@ -5,8 +5,19 @@ from .widgets import starWidget
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = Movie_Review
-        # fields = '__all__'
+        # fields = ['content']
         exclude = ['movie', 'user']
+        widgets = {
+            'content': forms.Textarea(
+                attrs={
+                    'rows': 4,
+                    'placeholder': '내용을 입력하세요.'
+                }
+            ),
+        }
+        labels = {
+            'content': '내용',
+        }
 
 
 class RankForm(forms.ModelForm):

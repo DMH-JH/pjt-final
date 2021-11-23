@@ -1,11 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <h1><b>새 게시글 작성</b></h1>
+  <br>
   <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.media }}
     {{ form.as_p }}
-    <input type="submit" value="저장">
+    <div class="text-center">
+      <input type="submit" id="write" class="btn btn-dark rounded-pill col-4" value="저장">
+    </div>
   </form>
 {% endblock content %}
 
+{% comment %} {% block script %}
+<script type="text/javascript">
+  var checkUnload = true;
+  $(window).on('beforeunload', function () {
+      if (checkUnload) return "이 페이지를 벗어나면 작성된 내용은 저장되지 않습니다.";
+  });
+  $("#write").on("click", function () {
+      checkUnload = false;
+      $("submit").submit();
+  });
+</script>
+{% endblock script %} {% endcomment %}

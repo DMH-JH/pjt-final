@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
   <br>
   <h3 class="text-center"><b>🎥영화 게시판🎬</b></h3>
   {% if request.user.is_authenticated %}
@@ -8,19 +9,31 @@
   {% else %}
     <a href="{% url 'accounts:login' %}">[새 글을 작성하려면 로그인하세요.]</a>
   {% endif %}
-  <hr>
-  {% for article in articles %}
-    <div><a href="{% url 'community:detail' article.pk %}" class="text-decoration-none text-body">
-      <img src="{{ article.user.profile_img.url }}"
-              class="border rounded-circle"
-              alt=""
-              height="20"
-      >
-      <b>{{ article.user }}</b>&nbsp;&nbsp;
-      <small class="text-muted">{{ article.created_at|date:'n/j H:i' }}</small>
-      <p>{{ article.title }}</p>
-      <p>{{ article.content|safe }}</p>
-    </div>
-    <hr>
-  {% endfor %}
-{% endblock content %}
+
+  <table class="table">
+    <thead>
+      <tr class="text-center">
+        <th style="font-weight: bold; font-size: 16px;">번호</th>
+        <th style="font-weight: bold; font-size: 16px;">제목</th>
+        <th style="font-weight: bold; font-size: 16px;">작성자</th>
+        <th style="font-weight: bold; font-size: 16px;">등록일</th>
+        {% comment %} <th style="font-weight: bold; font-size: 16px;">조회수</th> {% endcomment %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for article in articles %}
+      <tr class="text-center" style="font-weight: bold; cursor:pointer;"
+        onclick="location.href='/community/{{ article.pk }}/'">
+        <td>{{ article.pk }}</td>
+        <td class="text-left" style="width:50%">
+          {{ article.title|truncatechars:30 }}
+        </td>
+        <td>{{ article.user }}</td>
+        <td>{{ article.created_at|date:'Y-n-j H:i' }}</td>
+        {% comment %} <td>{{ article.hits }}</td> {% endcomment %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock  %}
