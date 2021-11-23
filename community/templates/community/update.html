@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>UPDATE</h1>
+  <h1><b>게시글 수정</b></h1>
+  <br>
   <form action="{% url 'community:update' article.pk %}" method="POST"  enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.media }}
     {{ form.as_p }}
-    <input type="submit" value="수정">
+
+    <div class="text-center">
+      <input type="submit" class="btn btn-dark rounded-pill col-4" value="수정완료">
+    </div>
   </form>
   <hr>
   <a href="{% url 'community:detail' article.pk %}">[back]</a>

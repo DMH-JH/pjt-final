@@ -18,11 +18,13 @@ from django.urls import path, include
 from django.conf.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
+import movies.views
 
 urlpatterns = [
+    path('', movies.views.home, name='home'),
     path('admin/', admin.site.urls),
     path('movies/', include('movies.urls')),
     path('accounts/', include('accounts.urls')),
     path('community/', include('community.urls')),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
+    # path('ckeditor/', include('ckeditor_uploader.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

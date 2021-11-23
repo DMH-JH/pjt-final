@@ -6,6 +6,10 @@ from .forms import RankForm, ReviewForm
 
 
 # Create your views here.
+def home(request):
+    return render(request, 'home.html')
+
+
 @require_GET
 def index(request):
     movies = Movie.objects.all()
@@ -31,7 +35,6 @@ def detail(request, movie_pk):
             return redirect('movies:detail', movie_pk)
     else:
         review_form = ReviewForm()
-        reviews = Movie_Review.objects.filter(movie_id=movie_pk)
     
     movie = get_object_or_404(Movie, pk=movie_pk)
     genres = get_list_or_404(Genre, movie=movie)
@@ -41,7 +44,6 @@ def detail(request, movie_pk):
         'movie': movie,
         'genres': genres,
         'review_form': review_form,
-        'reviews': reviews,
         'rank': rank,
         'rank_form': rank_form,
     }

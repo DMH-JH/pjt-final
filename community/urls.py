@@ -5,6 +5,7 @@ from . import views
 app_name = 'community'
 urlpatterns = [
     path('', views.index, name='index'),
+    # path('', views.ArticleListView.as_view(), name='article_list'),
     path('create/', views.create, name='create'),
     path('<int:pk>/', views.detail, name='detail'),
     path('<int:pk>/delete/', views.delete, name='delete'),
