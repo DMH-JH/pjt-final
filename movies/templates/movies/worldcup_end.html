@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2 class="text-center"> 영화 월드컵 {{ total_round }}강 우승 영화</h2>
+  <h2 class="text-center">{{ movie.title }}</h2>
+  
+  <div class="row">
+    <div class="col-3">
+    </div>
+    <div class="col-6">
+      <img class="img" id="img-{{ movie.pk }}" data-movie-pk="{{ movie.pk }}" src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}"alt="">
+    </div>
+    <div class="col-3">
+    </div>
+{% endblock content %}
+

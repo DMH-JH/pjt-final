@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<form action="{% url 'movies:worldcup_init' %}" method="GET">
+  <div class="modal fade show d-block" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-center" id="exampleModalLabel">영화 월드컵</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="">총 라운드를 선택하세요.</p>
+          <select name="round" class="form-select" aria-label="Default select example">
+            <option value="8">8강</option>
+            <option value="16">16강</option>
+            <option value="24">24강</option>
+        </select>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">시작하기</button>
+          </form>
+          <form action="{% url 'movies:index' %}" method="GET">
+            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+
+
+
+{% comment %} <form class="row g-3">
+  <div class="col-auto">
+    <label for="inputPassword2" class="visually-hidden">Password</label>
+    <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary mb-3">Confirm identity</button>
+  </div>
+</form>
+ {% endcomment %}

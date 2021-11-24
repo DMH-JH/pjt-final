@@ -9,7 +9,8 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <a class="nav-link" href="{% url 'movies:index' %}">영화목록</a>
-        <a class="nav-link" href="{% url 'community:index' %}">게시판</a>
+        <a class="nav-link" href="{% url 'community:index' %}">커뮤니티</a>
+        <a class="nav-link" href="{% url 'movies:worldcup_select_round' %}">영화월드컵</a>
       </ul>
 
       <form class="d-flex col-md-4 col-lg-4" action="{% url 'movies:search' %}" method="get">

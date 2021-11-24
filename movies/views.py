@@ -6,6 +6,15 @@ from .models import Genre, Movie, Movie_Review, Rank
 from .forms import RankForm, ReviewForm
 import random
 from django.core.paginator import Paginator
+<<<<<<< HEAD
+from django.core import serializers
+from django.http import HttpResponse
+import json
+import copy
+from django.contrib.auth import get_user_model
+
+=======
+>>>>>>> 8ac9b9412aa0493805ff7e84aa5146b2f1e01968
 
 # Create your views here.
 def search(request):
@@ -163,3 +172,93 @@ def delete_rank(request, movie_pk, rank_pk):
     if request.user == rank.user and request.method == 'POST':
         rank.delete()
     return redirect('movies:detail', movie.pk)
+
+
+movies = []
+next_movies = []
+
+def worldcup_init(request):
+    global paginator
+    global movies
+    round = int(request.GET.get('round'))
+    movies = random.sample(list(Movie.objects.order_by('-popularity'))[:50], round)
+    paginator = Paginator(movies, 2)
+    last_page = len(movies) // 2
+    next_movies.clear()
+
+    context = {
+        'movies': movies[:2],
+        'init_page': 1,
+        'last_page': last_page,
+        'round': round,
+    }
+    return render(request, 'movies/worldcup.html', context)
+
+
+def worldcup_next_round(request):
+    global paginator
+    global movies
+    global next_movies
+
+    page_number = int(request.GET.get('page'))
+    last_page = len(movies) // 2
+    movie_params = []
+
+    if page_number > last_page:
+        print('change round')
+        seletedMoviePks = request.GET.get('seletedMoviePks')
+        movie = get_object_or_404(Movie, pk=seletedMoviePks)
+        next_movies.append(movie)
+        movies = copy.deepcopy(next_movies)
+        last_page = len(movies) // 2
+
+
+        movie_params = movies[:2]
+        print(movie_params)
+        data = serializers.serialize('json', movie_params)
+
+        next_movies.clear()
+
+        data2 = {
+            'last_page': last_page,
+            'movies' : data,
+        }
+        data2 = json.dumps(data2)
+        return HttpResponse(data2, content_type='application/json')
+
+    else:
+        
+        movie_params = movies[(page_number-1)*2:((page_number-1)*2 + 2)]
+        
+
+        data = serializers.serialize('json', movie_params)
+
+        seletedMoviePks = request.GET.get('seletedMoviePks')
+        movie = get_object_or_404(Movie, pk=seletedMoviePks)
+        next_movies.append(movie)
+
+        return HttpResponse(data, content_type='application/json')
+
+
+def worldcup_end(request):
+    if request.user.is_authenticated:
+        seletedMoviePks = request.GET.get('seletedMoviePks')
+        totalRound = request.GET.get('totalRound')
+        print('우승영화!!')
+
+        movie = get_object_or_404(Movie, pk=seletedMoviePks)
+
+        user = get_object_or_404(get_user_model(), username=request.user)
+        user.recommended_movie.add(movie)
+        context = {
+            'movie': movie,
+            'total_round': totalRound,
+        }
+
+        return render(request, 'movies/worldcup_end.html', context)
+
+    return redirect('movies:worldcup_init')
+
+def worldcup_select_round(request):
+
+    return render(request, 'movies/worldcup_select_round.html')
