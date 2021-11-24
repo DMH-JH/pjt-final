@@ -76,6 +76,8 @@
       <h4><b>리뷰</b></h4>
       {% if movie.movie_review_set.all|length %}
         <p class="text-muted"><b><span id="review-count">{{ movie.movie_review_set.all|length }}</span>개의 리뷰가 있습니다.</b></p>
+      {% else %}
+        <p class="text-muted"><b>아직 리뷰가 없어요..</b></p>
       {% endif %}
 
       <form action="" method="POST">
@@ -124,10 +126,10 @@
 
             </div>
           </li>
-        {% empty %}
-          <p><b>아직 리뷰가 없어요..</b></p>
         {% endfor %}
       </ul>
+
+      <br><br>
 
     </div>
 

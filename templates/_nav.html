@@ -1,7 +1,7 @@
 
 <nav class="py-2 navbar sticky-top navbar-expand-md navbar-dark navbar-custom">
   <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'home' %}">Logo</a>
+    <a class="navbar-brand" href="{% url 'home' %}">🎬</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -9,18 +9,18 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <a class="nav-link" href="{% url 'movies:index' %}">영화목록</a>
-        <a class="nav-link" href="{% url 'community:index' %}">커뮤니티</a>
+        <a class="nav-link" href="{% url 'community:index' %}">게시판</a>
         <a class="nav-link" href="{% url 'movies:worldcup_select_round' %}">영화월드컵</a>
       </ul>
 
-      <form class="d-flex col-md-4 col-lg-4" action="{% url 'movies:search' %}" method="get">
+      <form class="d-flex col-md-4 col-lg-3" action="{% url 'movies:search' %}" method="get">
         <input class="form-control me-2 text-center rounded-pill" type="search" placeholder="영화검색" aria-label="Search" id="q" name="q" value="{{ q }}">
         <button class="btn btn-sm btn-outline-light rounded-pill col-2" type="submit"><i class="fas fa-search"></i></button>
       </form>
 
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav ms-auto">
         <li class="nav-item dropdown">
-          <a class="me-3 pb-0 nav-link dropdown-toggle" href="#" id="dropdownmenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="me-3 py-md-0 py-lg-0 nav-link dropdown-toggle" href="#" id="dropdownmenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <img src="{{ user.profile_img.url }}"
               class="rounded-circle"
               alt=""
@@ -33,7 +33,7 @@
               <li><a class="dropdown-item" href="#" 
                 onClick="document.getElementById('logoutform').submit()"
               >
-              Logout
+              로그아웃
               </a></li>
               <form id="logoutform" action="{% url 'accounts:logout' %}" method="POST">
                 {% csrf_token %}
@@ -45,8 +45,8 @@
                 <input type="submit" value="회원탈퇴">
               </form> {% endcomment %}
             {% else %}
-              <a class="dropdown-item" href="{% url 'accounts:login' %}">Login</a>
-              <a class="dropdown-item" href="{% url 'accounts:signup' %}">Signup</a>
+              <a class="dropdown-item" href="{% url 'accounts:login' %}">로그인</a>
+              <a class="dropdown-item" href="{% url 'accounts:signup' %}">회원가입</a>
             {% endif %}
           </ul>
         </li>
