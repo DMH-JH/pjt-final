@@ -32,7 +32,16 @@
     .django-ckeditor-widget{
       width: 100%;
     }
-    
+    .btn-dark {
+      color: #fff;
+      background-color: #212529;
+      border-color: #f8f9fa; /*set the color you want here*/
+    }
+    .btn-dark:hover, .btn-dark:focus, .btn-dark:active, .btn-dark.active, .open>.dropdown-toggle.btn-dark {
+      color: #000;
+      background-color: #f8f9fa;
+      border-color: #212529; /*set the color you want here*/
+    }
     {% block style %}
     {% endblock style %}
   </style>

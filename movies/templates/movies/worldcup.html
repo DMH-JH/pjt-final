@@ -1,17 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h4>제일 좋아하는 영화 고르기</h4>
-  <h1 id="round" data-last-page="{{ last_page }}">{{ round }}강  {{ init_page }}/{{ last_page }}</h1>
+  <br>
+  <h3 class="text-center"><b>🎬영화 월드컵⚽️</b></h3>
+  <br>
+  <h2 id="round" data-last-page="{{ last_page }}" class="text-center">
+    <b>{{ round }}강  {{ init_page }}/{{ last_page }}</b>
+  </h2>
+
   <hr>
-  <div class="row">
+
+  <div class="row justify-content-center">
     {% for movie in movies %}
-      <div class="movie-images col-6">
-        <h2 id="title-{{ movie.pk }}" class="text-center">{{ movie.title }}</h2>
-        <img class="img" id="img-{{ movie.pk }}" data-movie-pk="{{ movie.pk }}" src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}"alt="">
+      <div class="movie-images col-5">
+        <div>
+          <p id="title-{{ movie.pk }}" class="text-center" style="font-size: larger;">{{ movie.title }}</p>
+        </div>
+        <img class="img" id="img-{{ movie.pk }}"
+          data-movie-pk="{{ movie.pk }}" src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" alt=""
+          style="border-radius:20px;"
+        >
       </div>
     {% endfor %}
   </div>
+  <hr>
 {% endblock content %}
 
 {% block script %}
