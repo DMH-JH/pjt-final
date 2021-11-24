@@ -1,0 +1,9 @@
+
+
+<h1>owl</h1>
+<div id="owl-demo" class="owl-carousel owl-theme">
+  {% for movie in movies %}
+    <div class="item"><img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="The Last of us"></div>
+  {% endfor %}
+ 
+</div>

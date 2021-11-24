@@ -1,5 +1,42 @@
 {% extends 'base.html' %}
 
+{% block link %}
+  <link href="C:\Users\jhkim\Downloads\Powerful-Customizable-jQuery-Carousel-Slider-OWL-Carousel\owl-carousel/owl.carousel.css" rel="stylesheet">
+  <link href="C:\Users\jhkim\Downloads\Powerful-Customizable-jQuery-Carousel-Slider-OWL-Carousel\owl-carousel/owl.theme.css" rel="stylesheet">
+{% endblock link %}
+
+
 {% block content %}
-<h1>welcome</h1>
+  <h1>welcome</h1>
+  {% include 'movies/owl_carousel.html' %}
 {% endblock  %}
+
+
+{% block script %}
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  {% comment %} <script src="owl-carousel/owl.carousel.js"></script>  {% endcomment %}
+  {% comment %} <script src="C:\Users\jhkim\Downloads\Powerful-Customizable-jQuery-Carousel-Slider-OWL-Carousel\owl-carousel/owl.carousel.js"></script>  {% endcomment %}
+  <script src="C:\Users\jhkim\Downloads\Powerful-Customizable-jQuery-Carousel-Slider-OWL-Carousel\owl-carousel/owl.carousel.min.js"></script> 
+  <script>
+  <script>
+    $(document).ready(function() {
+    
+    $("#owl-demo").owlCarousel({
+    
+    navigation : true, // Show next and prev buttons
+    
+    slideSpeed : 300,
+    paginationSpeed : 400,
+    
+    items : 1, 
+    itemsDesktop : false,
+    itemsDesktopSmall : false,
+    itemsTablet: false,
+    itemsMobile : false
+    
+    });
+    
+    });
+</script>
+{% endblock script %}
+

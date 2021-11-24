@@ -33,7 +33,12 @@ def search(request):
 
 
 def home(request):
-    return render(request, 'home.html')
+    movies = Movie.objects.all()
+    
+    context = {
+        'movies': movies,
+    }
+    return render(request, 'home.html', context)
 
 
 @require_GET

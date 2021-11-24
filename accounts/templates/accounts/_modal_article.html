@@ -1,7 +1,7 @@
 {% load humanize %}
 
 <!-- Modal -->
-<div class="modal fade" id="modalArticle" tabindex="-1" aria-labelledby="modalArticleLabel" aria-hidden="true">
+<div class="modal" data-bs-backdrop="static" id="modalArticle" tabindex="-1" aria-labelledby="modalArticleLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -31,6 +31,7 @@
           {% empty %}
             <p><b>작성한 글이 없어요..</b></p>
           {% endfor %}
+        </ul>
       </div>
 
     </div>
