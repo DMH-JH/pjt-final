@@ -1,18 +1,39 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models.query_utils import Q
 from django.shortcuts import get_list_or_404, render, redirect, get_object_or_404
 from django.views.decorators.http import require_GET, require_POST, require_http_methods
 from .models import Genre, Movie, Movie_Review, Rank
 from .forms import RankForm, ReviewForm
 import random
 from django.core.paginator import Paginator
+<<<<<<< HEAD
 from django.core import serializers
 from django.http import HttpResponse
 import json
 import copy
 from django.contrib.auth import get_user_model
 
+=======
+>>>>>>> 8ac9b9412aa0493805ff7e84aa5146b2f1e01968
 
 # Create your views here.
+def search(request):
+    qs = Movie.objects.all()
+    q = request.GET.get('q', '')
+    print(q)
+    if q:
+        qs = qs.filter(title__icontains=q)
+    pagenator = Paginator(qs, 2)
+    page_number = request.GET.get('page')
+    qs = pagenator.get_page(page_number)
+    context = {
+        'movies': qs,
+        'q': q,
+        'search_page': True,
+    }
+    return render(request, 'movies/index.html', context)
+
+
 def home(request):
     return render(request, 'home.html')
 
@@ -20,7 +41,10 @@ def home(request):
 @require_GET
 def index(request):
     movies = Movie.objects.all()
-    
+    pagenator = Paginator(movies, 12)
+    page_number = request.GET.get('page')
+    movies = pagenator.get_page(page_number)
+
     context = {
         'movies': movies,
     }
@@ -47,12 +71,21 @@ def detail(request, movie_pk):
     genres = get_list_or_404(Genre, movie=movie)
     rank = Rank.objects.filter(user=request.user, movie_id=movie_pk).first()
     rank_form = RankForm()
+
+    random_genre = random.sample(genres, 1)[0]
+    similar_movie = Movie.objects.filter(
+        Q(genres = random_genre.id) &
+        ~Q(id = movie_pk)
+    ).order_by('?')[:4]
+
     context = {
         'movie': movie,
         'genres': genres,
         'review_form': review_form,
         'rank': rank,
         'rank_form': rank_form,
+        'random_genre': random_genre,
+        'similar_movie': similar_movie,
     }
     return render(request, 'movies/detail.html', context)
 
