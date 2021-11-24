@@ -1,16 +1,26 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
   <br>
   <h3 class="text-center"><b>🎥영화 게시판🎬</b></h3>
-  {% if request.user.is_authenticated %}
-    <a href="{% url 'community:create' %}">게시물 작성</a>
-  {% else %}
-    <a href="{% url 'accounts:login' %}">[새 글을 작성하려면 로그인하세요.]</a>
-  {% endif %}
+  <br>
 
-  <table class="table">
+  <div class="text-end">
+  {% if request.user.is_authenticated %}
+    <a class="btn btn-dark rounded-pill col-3"
+      href="{% url 'community:create' %}">
+      게시물 작성</a>
+  {% else %}
+    <p>[새 글을 작성하려면 로그인하세요.]</p>
+    <a class="btn btn-dark col-3"
+      href="{% url 'accounts:login' %}">
+      로그인 바로가기</a>
+  {% endif %}
+  </div>
+
+  <br>
+  
+  <table class="table table-hover">
     <thead>
       <tr class="text-center">
         <th style="font-weight: bold; font-size: 16px;">번호</th>
@@ -37,3 +47,4 @@
   </table>
 
 {% endblock  %}
+

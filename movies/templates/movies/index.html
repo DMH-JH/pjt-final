@@ -1,11 +1,42 @@
 {% extends 'base.html' %}
+{% load bootstrap5 %}
 
 {% block content %}
-  <div class="row row-cols-sm-2 row-cols-md-4 row-cols-5 g-4">
+  <br>
+  {% if q %}
+  <h3 class="text-center"><b>"{{ q }}" 검색 결과</b></h3>  
+  <br>
+  {% else %}
+  <h3 class="text-center"><b>영화 목록</b></h3>
+  <br>
+  {% endif %}
+  <br> 
+
+  <div class="row row-cols-sm-2 row-cols-md-4 row-cols-lg-4 g-4">
     {% for movie in movies %}
       {% include 'movies/_card.html' %}
     {% endfor %}
   </div>
+
+  <br>
+
+  <div class="d-flex justify-content-center">
+    {% bootstrap_pagination movies %}
+  </div>
+
+<style>
+  .card:hover .card-img{
+    opacity: 0.3;
+  }
+  .card:hover{
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    -webkit-transition:all .3s ease; 
+    -moz-transition:all .3s ease; 
+    -o-transition:all .3s ease;
+    -ms-transition:all .3s ease; 
+    width: 100%;
+    height: 22vw;
+  }
+</style>
 {% endblock  %}
-
-

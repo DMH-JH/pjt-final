@@ -3,14 +3,18 @@
 {% load humanize %}
 
 {% block content %}
-  <a href="{% url 'community:index' %}">게시판으로</a>
+  <br>
+  <h3 class="text-center"><b>🎥영화 게시판🎬</b></h3>
+  <br>
+  
+  <a class="btn btn-secondary rounded-pill col-2" href="{% url 'community:index' %}">뒤로가기</a>
   <br>
   <br>
   <h3><b>{{ article.title }}</b></h3>
   <p><small class="text-muted">{{ article.user }} | {{ article.created_at }} | 
     {% if user == article.user %}
-      <a href="{% url 'community:update' article.pk %}">수정</a> |
-      <a href="#" onclick="document.getElementById('deleteform').submit()">삭제</a>
+      <a class="text-decoration-none text-muted" href="{% url 'community:update' article.pk %}">수정</a> |
+      <a class="text-decoration-none text-muted" href="#" onclick="document.getElementById('deleteform').submit()">삭제</a>
       <form id="deleteform" action="{% url 'community:delete' article.pk %}" method="POST">
         {% csrf_token %}
         <input type="hidden">
