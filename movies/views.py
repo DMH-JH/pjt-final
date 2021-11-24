@@ -6,24 +6,22 @@ from .models import Genre, Movie, Movie_Review, Rank
 from .forms import RankForm, ReviewForm
 import random
 from django.core.paginator import Paginator
-<<<<<<< HEAD
 from django.core import serializers
 from django.http import HttpResponse
 import json
 import copy
 from django.contrib.auth import get_user_model
 
-=======
->>>>>>> 8ac9b9412aa0493805ff7e84aa5146b2f1e01968
 
 # Create your views here.
 def search(request):
-    qs = Movie.objects.all()
+    # qs = Movie.objects.all()
+    qs = Movie.objects.get_queryset().order_by('id')
     q = request.GET.get('q', '')
     print(q)
     if q:
         qs = qs.filter(title__icontains=q)
-    pagenator = Paginator(qs, 2)
+    pagenator = Paginator(qs, 4)
     page_number = request.GET.get('page')
     qs = pagenator.get_page(page_number)
     context = {

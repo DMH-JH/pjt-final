@@ -67,9 +67,13 @@
   <div class="card w-100">
     <div class="card-body">
       <p class="card-title">추천받은 영화</p>
-      {% for recommended_movie in recommended_movies %}
-        <h4 class="card-text text-center">{{ recommended_movie.title }}</h4>
-      {% endfor %}
+      <div class="row row-cols-sm-2 row-cols-md-4 row-cols-lg-4 g-4">
+        {% for movie in recommended_movies %}
+          {% include 'movies/_card.html' %}
+        {% empty %}
+          <p><b>추천받은 영화가 없어요..</b></p>
+        {% endfor %}
+      </div>
     </div>
   </div>
   
