@@ -1,20 +1,20 @@
 
-<nav class="py-2 navbar sticky-top navbar-expand-md navbar-dark bg-dark">
+<nav class="py-2 navbar sticky-top navbar-expand-md navbar-dark navbar-custom">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Logo</a>
+    <a class="navbar-brand" href="{% url 'home' %}">Logo</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto">
         <a class="nav-link" href="{% url 'movies:index' %}">영화목록</a>
-        <a class="nav-link" href="{% url 'community:index' %}">커뮤니티</a>
+        <a class="nav-link" href="{% url 'community:index' %}">게시판</a>
       </ul>
 
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-sm btn-outline-success" type="submit">Search</button>
+      <form class="d-flex col-md-4 col-lg-4" action="{% url 'movies:search' %}" method="get">
+        <input class="form-control me-2 text-center rounded-pill" type="search" placeholder="영화검색" aria-label="Search" id="q" name="q" value="{{ q }}">
+        <button class="btn btn-sm btn-outline-light rounded-pill col-2" type="submit"><i class="fas fa-search"></i></button>
       </form>
 
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">

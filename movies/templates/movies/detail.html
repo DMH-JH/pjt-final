@@ -5,7 +5,7 @@
 {% block content %}
   <br>
 
-  <div class="row">
+  <div class="row card-bg">
     <div class="col-4">
       <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}"
         class="img-thumbnail" alt="..."
@@ -28,14 +28,6 @@
         {{ movie.original_language }}
       </p>
       <p>{{ movie.popularity }}</p>
-
-      {% comment %} <p>{{ rank.user }} - {{ rank.rating }}</p> {% endcomment %}
-
-
-
-      {% comment %} 
-        Rank
-      {% endcomment %}
 
 
       {% if rank %}
@@ -67,8 +59,8 @@
   <hr>
 
   <div class="row">
-    <div class="col-8">
-      <h5><b>기본 정보</b></h5>
+    <div class="col-8 card-bg">
+      <h4><b>기본 정보</b></h4>
       <p>{{ movie.original_title }}</p>
       <p>
         {{ movie.release_date }} ・ 
@@ -81,7 +73,7 @@
       <p>{{ movie.overview }}</p>
 
       <hr>
-      <h5><b>리뷰</b></h5>
+      <h4><b>리뷰</b></h4>
       {% if movie.movie_review_set.all|length %}
         <p class="text-muted"><b><span id="review-count">{{ movie.movie_review_set.all|length }}</span>개의 리뷰가 있습니다.</b></p>
       {% endif %}
@@ -90,9 +82,11 @@
         {% csrf_token %}
         {% bootstrap_form review_form show_label=False %}
         <div class="text-end">
-          <input type="submit" class="btn btn-dark rounded-pill col-6">
+          <input type="submit" class="btn btn-dark rounded-pill col-6" value="저장">
         </div>
       </form>
+      
+      <br>
 
       <ul class="list-group list-group-flush">
         {% for review in movie.movie_review_set.all %}
@@ -135,6 +129,23 @@
         {% endfor %}
       </ul>
 
+    </div>
+
+    <div class="col-4">
+      <h5><b>추천 영화</b></h5>
+      <p class="text-muted">{{ random_genre.name }}</p>
+      
+      <div class="row row-cols-2">
+      {% for smovie in similar_movie %}
+      <div class="card">
+        <img src="https://image.tmdb.org/t/p/original/{{ smovie.poster_path }}"
+          class="img-thumbnail col" alt="..."
+          OnClick="location.href='{% url 'movies:detail' smovie.pk %}'" style="cursor:pointer;"
+        >
+      </div>
+      {% endfor %}
+      </div>
+      
     </div>
   </div>
 

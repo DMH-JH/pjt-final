@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <br>
+  <h3 class="text-center"><b>🎥영화 게시판🎬</b></h3>
+  <br>
+  
   <h1><b>게시글 수정</b></h1>
   <br>
   <form action="{% url 'community:update' article.pk %}" method="POST"  enctype="multipart/form-data">
@@ -10,8 +14,9 @@
 
     <div class="text-center">
       <input type="submit" class="btn btn-dark rounded-pill col-4" value="수정완료">
+      <a class="btn btn-secondary rounded-pill col-4"
+        href="{% url 'community:detail' article.pk %}">취소</a>
     </div>
   </form>
   <hr>
-  <a href="{% url 'community:detail' article.pk %}">[back]</a>
 {% endblock content %}

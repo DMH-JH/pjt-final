@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <br>
+  <h3 class="text-center"><b>🎥영화 게시판🎬</b></h3>
+  <br>
+  
   <h1><b>새 게시글 작성</b></h1>
   <br>
   <form action="" method="POST" enctype="multipart/form-data">
@@ -9,6 +13,8 @@
     {{ form.as_p }}
     <div class="text-center">
       <input type="submit" id="write" class="btn btn-dark rounded-pill col-4" value="저장">
+      <a class="btn btn-secondary rounded-pill col-4"
+        href="{% url 'community:index' %}">취소</a>
     </div>
   </form>
 {% endblock content %}
