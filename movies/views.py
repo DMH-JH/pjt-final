@@ -15,12 +15,13 @@ from django.contrib.auth import get_user_model
 
 # Create your views here.
 def search(request):
-    qs = Movie.objects.all()
+    # qs = Movie.objects.all()
+    qs = Movie.objects.get_queryset().order_by('id')
     q = request.GET.get('q', '')
     print(q)
     if q:
         qs = qs.filter(title__icontains=q)
-    pagenator = Paginator(qs, 2)
+    pagenator = Paginator(qs, 4)
     page_number = request.GET.get('page')
     qs = pagenator.get_page(page_number)
     context = {

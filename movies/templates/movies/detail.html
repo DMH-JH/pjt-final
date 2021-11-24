@@ -163,8 +163,8 @@
           const video = document.querySelector('[data-video-url]');
           const videoUrl = video.getAttribute('data-video-url')
           const videoId = videoUrl.slice(32 ,videoUrl.length)
-          let src = `https://www.youtube.com/embed/${videoId}`
-          //let src = 'https://www.youtube.com/embed/IrQt_aSddJY'
+          // let src = `https://www.youtube.com/embed/${videoId}`
+          let src = videoUrl
           $('#myModal').modal('show');
           $('#myModal iframe').attr('src', src);
       })
