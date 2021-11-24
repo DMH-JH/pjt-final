@@ -11,14 +11,26 @@
       
       <div class="modal-body">
         {% for rank in person.rank_set.all %}
-          <p>{{ rank.movie.title }}</p>
+          <a href="{% url 'movies:detail' rank.movie.pk %}" class="text-decoration-none text-reset">
+            <p>{{ rank.movie.title }}</p>
+
+
+            <div class="card w-100">
+              <div class="card-body">
+                <p class="card-title">추천받은 영화</p>
+                <div class="row row-cols-sm-2 row-cols-md-4 row-cols-lg-4 g-4">
+                  {% include 'accounts/ranked_moive_card.html' %}
+                </div>
+              </div>
+            </div>
+
+
+          </a>
+        {% empty %}
+          <p><b>아직 본 영화가 없어요..</b></p>          
         {% endfor %}
       </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
     </div>
   </div>
 </div>

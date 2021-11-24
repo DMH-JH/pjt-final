@@ -7,13 +7,13 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav me-auto d-flex col-md-6 col-lg-6">
         <a class="nav-link" href="{% url 'movies:index' %}">영화목록</a>
         <a class="nav-link" href="{% url 'community:index' %}">게시판</a>
         <a class="nav-link" href="{% url 'movies:worldcup_select_round' %}">영화월드컵</a>
       </ul>
 
-      <form class="d-flex col-md-4 col-lg-3" action="{% url 'movies:search' %}" method="get">
+      <form class="d-flex col-md-3 col-lg-3" action="{% url 'movies:search' %}" method="get">
         <input class="form-control me-2 text-center rounded-pill" type="search" placeholder="영화검색" aria-label="Search" id="q" name="q" value="{{ q }}">
         <button class="btn btn-sm btn-outline-light rounded-pill col-2" type="submit"><i class="fas fa-search"></i></button>
       </form>

@@ -17,7 +17,7 @@
           <p id="title-{{ movie.pk }}" class="text-center" style="font-size: larger;">{{ movie.title }}</p>
         </div>
         <img class="img" id="img-{{ movie.pk }}"
-          data-movie-pk="{{ movie.pk }}" src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" alt=""
+          data-movie-pk="{{ movie.pk }}" src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt=""
           style="border-radius:20px;"
         >
       </div>
@@ -74,11 +74,11 @@
           // console.log(movies)
           if (lastPage === 1) {
             const round = document.querySelector('#round')
-            round.innerText = `결승전`
+            round.innerHTML = `<b>결승전<b>`
           } else {
             pageNum = 1
             const round = document.querySelector('#round')
-            round.innerText = `${lastPage * 2}강  ${pageNum}/${lastPage}`
+            round.innerHTML = `<b>${lastPage * 2}강  ${pageNum}/${lastPage}</b>`
           }
           
 
@@ -99,9 +99,10 @@
             beforeMovieTitle.id = `title-${moviePk}`
 
             newImg.classList.add('img')
-            newImg.src = `https://image.tmdb.org/t/p/original/${moviePosterPath}`
+            newImg.src = `https://image.tmdb.org/t/p/w500/${moviePosterPath}`
             newImg.id = `img-${moviePk}`
             newImg.dataset.moviePk = `${moviePk}`
+            newImg.style = 'border-radius:20px;'
 
             const parent = image1.parentNode
             console.log(newImg)
@@ -143,15 +144,16 @@
             beforeMovieTitle.id = `title-${moviePk}`
 
             newImg.classList.add('img')
-            newImg.src = `https://image.tmdb.org/t/p/original/${moviePosterPath}`
+            newImg.src = `https://image.tmdb.org/t/p/w500/${moviePosterPath}`
             newImg.id = `img-${moviePk}`
             newImg.dataset.moviePk = `${moviePk}`
+            newImg.style = 'border-radius:20px;'
 
             const parent = image1.parentNode
             parent.replaceChild(newImg, image1)
           })
           const round = document.querySelector('#round')
-          round.innerText = `${lastPage * 2}강  ${pageNum+1}/${lastPage}`
+          round.innerHTML = `<b>${lastPage * 2}강  ${pageNum+1}/${lastPage}</b>`
           pageNum += 1
         })
       }

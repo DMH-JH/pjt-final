@@ -1,9 +1,103 @@
 
 
-<h1>owl</h1>
+{% comment %} <h1>owl</h1>
 <div id="owl-demo" class="owl-carousel owl-theme">
   {% for movie in movies %}
     <div class="item"><img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt="The Last of us"></div>
   {% endfor %}
  
+</div> {% endcomment %}
+
+
+<div class="container text-center my-3">
+    <h2 class="font-weight-light">Bootstrap Multi Slide Carousel</h2>
+    <div class="row mx-auto my-auto justify-content-center">
+        <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+                <div class="carousel-item active">
+                    <div class="col-md-2">
+                        <div class="card h-100 text-center">
+                            <div class="card-img">
+                                <img src="https://image.tmdb.org/t/p/w500/{{ first_movie.poster_path }}" 
+                                    class="img-fluid card-img img-thumbnail"
+                                >
+                            </div>
+                            <div class="card-img-overlay">
+                                <br>
+                                <br>
+                                <b class="card-title">{{first_movie.title}}</b>
+                            </div>
+                        </div>
+                    </div>
+                </div>            
+                {% for movie in movies %}
+                    <div class="carousel-item">
+                        <div class="col-md-2">
+                            <div class="card h-100 text-center">
+                                    <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" 
+                                        class="card-img img-thumbnail"
+                                    >
+                                <div class="card-img-overlay">
+                                    <br>
+                                    <br>
+                                    <b class="card-title">{{ movie.title }}</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+
+                {% comment %} <div class="carousel-item">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-img">
+                                <img src="//via.placeholder.com/500x400/e66?text=2" class="img-fluid">
+                            </div>
+                            <div class="card-img-overlay">Slide 2</div>
+                        </div>
+                    </div>
+                </div> {% endcomment %}
+
+
+
+
+            </div>
+            <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </a>
+            <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+    <h5 class="mt-2 fw-light">advances one slide at a time</h5>
 </div>
+
+
+<style>
+.card-img {
+  max-width: 100%;
+  width: 100%;
+  height: 22vw;
+  object-fit: cover;
+  z-index: 1;
+}
+.card-title {
+  vertical-align: middle;
+}
+
+.card:hover .card-img{
+  opacity: 0.3;
+}
+.card:hover{
+  transform: scale(1.10);
+  box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+  -webkit-transition:all .3s ease; 
+  -moz-transition:all .3s ease; 
+  -o-transition:all .3s ease;
+  -ms-transition:all .3s ease; 
+  width: 100%;
+  height: 22vw;
+}
+</style>

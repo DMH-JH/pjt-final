@@ -33,9 +33,11 @@ def search(request):
 
 
 def home(request):
-    movies = Movie.objects.all()
+    first_movie =  Movie.objects.first()
+    movies = Movie.objects.get_queryset().order_by('id')[1:]
     
     context = {
+        'first_movie': first_movie,
         'movies': movies,
     }
     return render(request, 'home.html', context)

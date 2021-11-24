@@ -7,36 +7,68 @@
 
 
 {% block content %}
-  <h1>welcome</h1>
   {% include 'movies/owl_carousel.html' %}
 {% endblock  %}
 
 
 {% block script %}
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  {% comment %} <script src="owl-carousel/owl.carousel.js"></script>  {% endcomment %}
-  {% comment %} <script src="C:\Users\jhkim\Downloads\Powerful-Customizable-jQuery-Carousel-Slider-OWL-Carousel\owl-carousel/owl.carousel.js"></script>  {% endcomment %}
-  <script src="C:\Users\jhkim\Downloads\Powerful-Customizable-jQuery-Carousel-Slider-OWL-Carousel\owl-carousel/owl.carousel.min.js"></script> 
-  <script>
-  <script>
-    $(document).ready(function() {
-    
-    $("#owl-demo").owlCarousel({
-    
-    navigation : true, // Show next and prev buttons
-    
-    slideSpeed : 300,
-    paginationSpeed : 400,
-    
-    items : 1, 
-    itemsDesktop : false,
-    itemsDesktopSmall : false,
-    itemsTablet: false,
-    itemsMobile : false
-    
-    });
-    
-    });
+<script>
+  let items = document.querySelectorAll('.carousel .carousel-item')
+
+  items.forEach((el) => {
+      const minPerSlide = 6
+      let next = el.nextElementSibling
+      for (var i=1; i<minPerSlide; i++) {
+          if (!next) {
+              // wrap carousel by using first child
+            next = items[0]
+          }
+          let cloneChild = next.cloneNode(true)
+          el.appendChild(cloneChild.children[0])
+          next = next.nextElementSibling
+      }
+  })
+
 </script>
 {% endblock script %}
+
+{% block style %}
+@media (max-width: 767px) {
+    .carousel-inner .carousel-item > div {
+        display: none;
+    }
+    .carousel-inner .carousel-item > div:first-child {
+        display: block;
+    }
+}
+
+.carousel-inner .carousel-item.active,
+.carousel-inner .carousel-item-next,
+.carousel-inner .carousel-item-prev {
+    display: flex;
+}
+
+/* medium and up screens */
+@media (min-width: 768px) {
+    
+    .carousel-inner .carousel-item-end.active,
+    .carousel-inner .carousel-item-next {
+      transform: translateX(16.7%);
+    }
+    
+    .carousel-inner .carousel-item-start.active, 
+    .carousel-inner .carousel-item-prev {
+      transform: translateX(-16.7%);
+    }
+}
+
+.carousel-inner .carousel-item-end,
+.carousel-inner .carousel-item-start { 
+  transform: translateX(0);
+}
+
+
+{% endblock style %}
+
+
 
