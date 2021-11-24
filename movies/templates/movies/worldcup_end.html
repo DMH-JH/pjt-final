@@ -1,8 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-  <h2 class="text-center"> 영화 월드컵 {{ total_round }}강 우승 영화</h2>
-  <h2 class="text-center">{{ movie.title }}</h2>
+  <h2 class="text-center">영화월드컵 {{ total_round }}강 우승</h2>
+  <h2 class="text-center"><b>{{ movie.title }}</b></h2>
   
+  <br>
+
+  <div class="row justify-content-evenly">
+    <a href="{% url 'movies:detail' movie.pk %}" class="btn btn-dark rounded-pill col-4">영화상세</a>
+    <a href="{% url 'accounts:profile' user %}" class="btn btn-dark rounded-pill col-4">마이페이지</a>
+  </div>
+
+  <br>
+
   <div class="row">
     <div class="col-3">
     </div>

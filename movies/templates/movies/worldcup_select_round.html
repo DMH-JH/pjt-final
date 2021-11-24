@@ -6,11 +6,10 @@
 <!-- Modal -->
 <form action="{% url 'movies:worldcup_init' %}" method="GET">
   <div class="modal fade show d-block" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title text-center" id="exampleModalLabel">영화 월드컵</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title" id="exampleModalLabel" style="margin: 0 auto;">🎬영화 월드컵⚽️</h5>
         </div>
         <div class="modal-body">
           <p class="">총 라운드를 선택하세요.</p>
@@ -21,10 +20,9 @@
         </select>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">시작하기</button>
-          </form>
+          <button type="submit" class="btn btn-dark mr-auto rounded-pill">시작하기</button>
           <form action="{% url 'movies:index' %}" method="GET">
-            <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">취소하기</button>
+            <button type="submit" class="btn btn-secondary rounded-pill"data-bs-dismiss="modal">취소하기</button>
           </form>
         </div>
       </div>

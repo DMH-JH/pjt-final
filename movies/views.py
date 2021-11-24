@@ -6,15 +6,12 @@ from .models import Genre, Movie, Movie_Review, Rank
 from .forms import RankForm, ReviewForm
 import random
 from django.core.paginator import Paginator
-<<<<<<< HEAD
 from django.core import serializers
 from django.http import HttpResponse
 import json
 import copy
 from django.contrib.auth import get_user_model
 
-=======
->>>>>>> 8ac9b9412aa0493805ff7e84aa5146b2f1e01968
 
 # Create your views here.
 def search(request):
