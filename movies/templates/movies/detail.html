@@ -27,26 +27,30 @@
         {% endfor %} ・ 
         {{ movie.original_language }}
       </p>
-      <p>{{ movie.popularity }}</p>
+      {% comment %} <p>{{ movie.popularity }}</p> {% endcomment %}
 
 
       {% if rank %}
-        <p>update</p>
+        <span>내 평점:</span>
         <div class="rateit" data-rateit-value="{{ rank.rating }}" data-rateit-ispreset="true" data-rateit-readonly="true"></div>
+        <form class="d-inline" action="{% url 'movies:delete_rank' movie.pk rank.pk %}" method="POST">
+          {% csrf_token %}
+          <input type="submit" class="btn btn-dark rounded-pill col-3" value="평점삭제">
+          {% comment %} <input type="submit" value="평점삭제" class="d-inline"> {% endcomment %}
+        </form>
+
         <p></p>
+
         <form class="d-inline" action="{% url 'movies:update_rank' movie.pk rank.pk %}" method="POST">
           {% csrf_token %}
           {{ rank_form }}
-          <input type="submit">
-        </form>
-        <form class="d-inline" action="{% url 'movies:delete_rank' movie.pk rank.pk %}" method="POST">
-          {% csrf_token %}
-          <input type="submit" value="평점삭제" class="d-inline">
+          <input type="submit" class="btn btn-dark rounded-pill col-2" value="저장">
+          {% comment %} <input type="submit"> {% endcomment %}
         </form>
 
 
       {% else %}
-        <p>create</p>
+        {% comment %} <p>create</p> {% endcomment %}
         <form action="{% url 'movies:create_rank' movie.pk %}" method="POST">
           {% csrf_token %}
           {{ rank_form }}
