@@ -21,16 +21,19 @@
                       alt=""
                       height="20"
               >
-              <b>{{ article.user }}</b>&nbsp;&nbsp;
-              <small class="text-muted">{{ article.created_at|naturaltime }}</small>
-              <p>{{ article.title }}</p>
-              <p>{{ article.content|safe }}</p>
+                <b>{{ article.user }}</b>&nbsp;&nbsp;
+                <small class="text-muted">{{ article.created_at|naturaltime }}</small>
+              <a href="{% url 'community:detail' article.pk %}" class="text-decoration-none text-reset">
+                <p>{{ article.title }}</p>
+                <p>{{ article.content|safe }}</p>
+              </a>
             {% comment %} </a> {% endcomment %}
             </div>
             <hr>
           {% empty %}
             <p><b>작성한 글이 없어요..</b></p>
           {% endfor %}
+        </ul>
       </div>
 
     </div>

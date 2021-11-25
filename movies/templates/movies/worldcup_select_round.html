@@ -5,32 +5,47 @@
 
 <!-- Modal -->
 <form action="{% url 'movies:worldcup_init' %}" method="GET">
-  <div class="modal fade show d-block" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel" style="margin: 0 auto;">🎬영화 월드컵⚽️</h5>
-        </div>
-        <div class="modal-body">
-          <p class="">총 라운드를 선택하세요.</p>
-          <select name="round" class="form-select" aria-label="Default select example">
-            <option value="8">8강</option>
-            <option value="16">16강</option>
-            <option value="24">24강</option>
-        </select>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-dark mr-auto rounded-pill">시작하기</button>
-          <a class="btn btn-secondary rounded-pill" href="{% url 'movies:index' %}">취소</a>
-          {% comment %} <form action="{% url 'movies:index' %}" method="GET">
-            <button type="submit" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">취소하기</button>
-          </form> {% endcomment %}
+  <div class="row d-flex flex-column modal fade show d-block py-5 my-5" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    
+    <div class="">
+      <div class="modal-dialog" id="worldcup-modal">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel" style="margin: 0 auto;">🎬영화 월드컵⚽️</h5>
+          </div>
+          <div class="modal-body">
+          <form action="">
+            <p class="">총 라운드를 선택하세요.</p>
+            <select name="round" class="form-select" aria-label="Default select example">
+              <option value="8">8강</option>
+              <option value="16">16강</option>
+              <option value="24">24강</option>
+            </select>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-dark mr-auto rounded-pill">시작하기</button>
+            </form>
+            <form action="{% url 'movies:index' %}" method="GET">
+              <button type="submit" class="btn btn-secondary rounded-pill"data-bs-dismiss="modal">취소하기</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
 {% endblock content %}
+
+{% block style %}
+#worldcup-modal {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  height: 90%;
+} 
+{% endblock style %}
+
+
 
 
 

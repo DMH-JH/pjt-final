@@ -33,7 +33,14 @@ def search(request):
 
 
 def home(request):
-    return render(request, 'home.html')
+    first_movie =  Movie.objects.first()
+    movies = Movie.objects.get_queryset().order_by('id')[1:]
+    
+    context = {
+        'first_movie': first_movie,
+        'movies': movies,
+    }
+    return render(request, 'home.html', context)
 
 
 @require_GET

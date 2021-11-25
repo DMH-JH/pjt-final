@@ -26,33 +26,33 @@
         class="text-decoration-none text-body"
         data-bs-toggle="modal" data-bs-target="#modalMovie"
       >
-        {% include 'accounts/_modal_movie.html' %}
         <div class="card-body">
           <p class="card-title">내가 본 영화</p>
           <h4 class="card-text text-end"><b>{{ person.rank_set.all|length }}&nbsp;&nbsp;&nbsp;</b>
         </div>
       </a></div>
     </div>
+    {% include 'accounts/_modal_movie.html' %}
 
     <div class="col-4">
       <div class="card"><a href="#" role="button"
         class="text-decoration-none text-body"
         data-bs-toggle="modal" data-bs-target="#modalArticle"
       >
-        {% include 'accounts/_modal_article.html' %}
         <div class="card-body">
           <p class="card-title">내가 쓴 글</p>
           <h4 class="card-text text-end"><b>{{ person.article_set.all|length }}&nbsp;&nbsp;&nbsp;</b></h4>
         </div>
       </a></div>
     </div>
+    {% include 'accounts/_modal_article.html' %}
+
 
     <div class="col-4">
       <div class="card"><a href="#" role="button"
         class="text-decoration-none text-body"
         data-bs-toggle="modal" data-bs-target="#modalComment"
       >
-        {% include 'accounts/_modal_comment.html' %}
         <div class="card-body">
           <p class="card-title">댓글 단 글</p>
           <h4 class="card-text text-end"><b>{{ cmt_articles|length }}&nbsp;&nbsp;&nbsp;</b></h4>
@@ -60,6 +60,8 @@
       </a></div>
     </div>
   </div>
+  {% include 'accounts/_modal_comment.html' %}
+
 
   <hr>
   <br>
