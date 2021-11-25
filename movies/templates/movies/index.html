@@ -12,7 +12,7 @@
   {% endif %}
   <br> 
 
-  <div class="row row-cols-sm-2 row-cols-md-4 row-cols-lg-4 g-4 row-cols-xl-4">
+  <div class="row justify-content-evenly g-4">
     {% for movie in movies %}
       {% include 'movies/_card.html' %}
     {% endfor %}
@@ -23,7 +23,7 @@
   <div class="d-flex justify-content-center">
     {% bootstrap_pagination movies %}
   </div>
-
+  <br>
 <style>
   .card:hover .card-img{
     opacity: 0.3;
@@ -37,6 +37,24 @@
     -ms-transition:all .3s ease; 
     width: 100%;
     height: 22vw;
+  }
+
+  .page-item.disabled .page-link,
+  .page-item.disabled .page-link:hover {
+    color: #999999 !important;
+  }
+  .page-item.active .page-link {
+  color: #fff !important;
+  background: #000 !important;
+  border-color: #000
+  }
+  .page-item .page-link {
+  color: #000 !important;
+  background: #fff !important;
+  border-color: #ECECEC
+  }
+  .pagination>li>a {
+    border-radius: 50% !important;margin: 0 5px;
   }
 </style>
 {% endblock  %}
