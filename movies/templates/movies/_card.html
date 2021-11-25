@@ -1,26 +1,74 @@
-<div class="col">
-  <div class="card h-100 text-center"
-     OnClick="location.href='{% url 'movies:detail' movie.pk %}'" style="cursor:pointer;">
-    <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}"
-      class="card-img img-thumbnail"
-      alt="..."
-    >
-    <div class="card-img-overlay">
+<div class="flip-card px-0" OnClick="location.href='{% url 'movies:detail' movie.pk %}'" style="cursor:pointer;">
+  <div class="flip-card-inner">
+    <div class="flip-card-front">
+      <img src="https://image.tmdb.org/t/p/w500/{{ movie.poster_path }}" alt=""
+        style="width:100%;height:100%;"
+        class="img-thumbnail">
+    </div>
+    <div class="flip-card-back">
       <br>
-      <br>
-      <b class="card-title">{{ movie.title }}</b>
+      <div class="p-3">
+        <h4><b>{{ movie.title }}</b></h4>
+        <h5>{{ movie.original_title }}</h5>
+      </div>
+      <div class="p-4 text-start">
+        {{ movie.overview|truncatechars:100}}
+      </div>
     </div>
   </div>
 </div>
 
 <style>
-.card-img {
-  width: 100%;
-  height: 22vw;
-  object-fit: cover;
-  z-index: 1;
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
+  background-color: transparent;
+  width: 300px;
+  height: 350px;
+  border: 1px solid #f1f1f1;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
 }
-.card-title {
-  vertical-align: middle;
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari */
+  backface-visibility: hidden;
+}
+
+.flip-card-front img {
+  object-fit: cover;
+  border-radius:10px;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
+  background-color: #999999;
+  color: black;
+  border-radius:10px;
+}
+
+/* Style the back side */
+.flip-card-back {
+  background-color: #1B150D;
+  color: white;
+  transform: rotateY(180deg);
+  border-radius:10px;
 }
 </style>
