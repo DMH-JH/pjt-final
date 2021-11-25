@@ -21,9 +21,10 @@
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-dark mr-auto rounded-pill">시작하기</button>
-          <form action="{% url 'movies:index' %}" method="GET">
-            <button type="submit" class="btn btn-secondary rounded-pill"data-bs-dismiss="modal">취소하기</button>
-          </form>
+          <a class="btn btn-secondary rounded-pill" href="{% url 'movies:index' %}">취소</a>
+          {% comment %} <form action="{% url 'movies:index' %}" method="GET">
+            <button type="submit" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">취소하기</button>
+          </form> {% endcomment %}
         </div>
       </div>
     </div>

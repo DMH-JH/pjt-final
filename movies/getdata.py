@@ -5,7 +5,7 @@ API_KEY = '1148b7211ad9ac4b35f86ab6667c8d34'
 
 # popular 높은순으로 id추출 (한 페이지당 20개)
 popular_ids = []
-for page in range(1, 3):
+for page in range(1, 8):
     url = 'https://api.themoviedb.org/3/movie/popular?api_key={}&page={}&language=ko-kr'.format(API_KEY, page)
     res = requests.get(url)
     data = json.loads(res.text)
