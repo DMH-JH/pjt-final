@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 
-{% block link %}
-  <link href="C:\Users\jhkim\Downloads\Powerful-Customizable-jQuery-Carousel-Slider-OWL-Carousel\owl-carousel/owl.carousel.css" rel="stylesheet">
-  <link href="C:\Users\jhkim\Downloads\Powerful-Customizable-jQuery-Carousel-Slider-OWL-Carousel\owl-carousel/owl.theme.css" rel="stylesheet">
-{% endblock link %}
-
-
 {% block content %}
-  {% include 'movies/owl_carousel.html' %}
+
+  <div class="row">
+      {% include 'movies/owl_carousel.html' %}
+      {% include 'movies/owl_carousel_second.html' %}
+  </div>
+
 {% endblock  %}
 
 
@@ -28,6 +27,8 @@
           next = next.nextElementSibling
       }
   })
+
+
 
 </script>
 {% endblock script %}

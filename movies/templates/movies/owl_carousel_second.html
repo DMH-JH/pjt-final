@@ -1,25 +1,26 @@
+
 <div class="col-12 container text-center my-3">
-    <h4 class="font-weight-light text-start px-4"><b>인기순</b></h4>
+    <h4 class="font-weight-light text-start px-4"><b>최신순</b></h4>
     <div class="row mx-auto my-auto justify-content-center">
-        <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div id="recipeCarousel2" class="carousel slide " data-bs-ride="carousel">
             <div class="carousel-inner" role="listbox">
                 <div class="carousel-item active">
                     <div class="col-md-2">
                         <div class="card h-100 text-center">
                             <div class="card-img">
-                                <img src="https://image.tmdb.org/t/p/w500/{{ first_popular_movie.poster_path }}" 
+                                <img src="https://image.tmdb.org/t/p/w500/{{ first_latest_movie.poster_path }}" 
                                     class="img-fluid card-img img-thumbnail"
                                 >
                             </div>
                             <div class="card-img-overlay">
                                 <br>
                                 <br>
-                                <b class="card-title">{{first_popular_movie.title}}</b>
+                                <b class="card-title">{{first_latest_movie.title}}</b>
                             </div>
                         </div>
                     </div>
                 </div>            
-                {% for movie in popular_movies %}
+                {% for movie in latest_movies %}
                     <div class="carousel-item">
                         <div class="col-md-2">
                             <div class="card h-100 text-center">
@@ -35,13 +36,12 @@
                         </div>
                     </div>
                 {% endfor %}
-                
-                
+
             </div>
-            <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="prev">
+            <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel2" role="button" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             </a>
-            <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button" data-bs-slide="next">
+            <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel2" role="button" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
             </a>
         </div>

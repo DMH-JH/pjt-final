@@ -73,20 +73,18 @@
         {% for movie in recommended_movies %}
           {% include 'movies/_card.html' %}
         {% empty %}
+        <div>
           <p><b>추천받은 영화가 없어요..</b></p>
+          <form action="{% url 'movies:worldcup_select_round' %}" method="GET">
+            <input type="submit" class="btn btn-dark rounded-pill" value="영화 추천받기">
+          </form>
+        </div>
         {% endfor %}
       </div>
     </div>
   </div>
   
   <br>
-  
-  <div class="card w-100">
-    <div class="card-body">
-      <p class="card-title">워드 클라우드</p>
-      <h4 class="card-text text-center">(공 란)</h4>
-    </div>
-  </div>
 
   {% comment %} <div class="row">
     <h3>{{ person.username }}가 본 영화</h3>

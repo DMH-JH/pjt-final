@@ -37,6 +37,9 @@ class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
         fields = ['title', 'content']
+        labels = {
+            'content': '내용',
+        }
 
 
 class CommentForm(forms.ModelForm):
