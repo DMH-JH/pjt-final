@@ -223,7 +223,6 @@ def worldcup_next_round(request):
 
 
         movie_params = movies[:2]
-        print(movie_params)
         data = serializers.serialize('json', movie_params)
 
         next_movies.clear()
@@ -253,7 +252,6 @@ def worldcup_end(request):
     if request.user.is_authenticated:
         seletedMoviePks = request.GET.get('seletedMoviePks')
         totalRound = request.GET.get('totalRound')
-        print('우승영화!!')
 
         movie = get_object_or_404(Movie, pk=seletedMoviePks)
 
