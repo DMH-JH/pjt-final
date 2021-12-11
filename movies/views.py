@@ -33,12 +33,16 @@ def search(request):
 
 
 def home(request):
-    first_movie =  Movie.objects.first()
-    movies = Movie.objects.get_queryset().order_by('id')[1:]
-    
+    first_popular_movie =  Movie.objects.get_queryset().order_by('-popularity').first()
+    popular_movies = Movie.objects.get_queryset().order_by('-popularity')[1:]
+    first_latest_movie = Movie.objects.get_queryset().order_by('-release_date').first
+    latest_movies = Movie.objects.get_queryset().order_by('-release_date')[1:]
+
     context = {
-        'first_movie': first_movie,
-        'movies': movies,
+        'first_popular_movie': first_popular_movie,
+        'popular_movies': popular_movies,
+        'first_latest_movie': first_latest_movie,
+        'latest_movies': latest_movies,
     }
     return render(request, 'home.html', context)
 
@@ -186,7 +190,7 @@ def worldcup_init(request):
     global paginator
     global movies
     round = int(request.GET.get('round'))
-    movies = random.sample(list(Movie.objects.order_by('-popularity'))[:50], round)
+    movies = random.sample(list(Movie.objects.order_by('-popularity')), round)
     paginator = Paginator(movies, 2)
     last_page = len(movies) // 2
     next_movies.clear()
@@ -219,7 +223,6 @@ def worldcup_next_round(request):
 
 
         movie_params = movies[:2]
-        print(movie_params)
         data = serializers.serialize('json', movie_params)
 
         next_movies.clear()
@@ -249,7 +252,6 @@ def worldcup_end(request):
     if request.user.is_authenticated:
         seletedMoviePks = request.GET.get('seletedMoviePks')
         totalRound = request.GET.get('totalRound')
-        print('우승영화!!')
 
         movie = get_object_or_404(Movie, pk=seletedMoviePks)
 
