@@ -43,21 +43,11 @@
     image.addEventListener('click', (event) => {
       if (lastPage === 1) {
         seletedMoviePks.push(event.target.dataset.moviePk)
-        console.log('finished')
         window.location.href=`/movies/worldcup/end/?seletedMoviePks=${seletedMoviePks[seletedMoviePks.length - 1]}&totalRound=${totalRound}` 
-        //  axios({
-        //   method: 'get',
-        //   url: "/movies/worldcup/end/",
-        //   params: {
-        //     seletedMoviePks: seletedMoviePks[seletedMoviePks.length - 1],
-        //     totalRound: totalRound,
-        //   }
-        // })
       } 
       else if(pageNum === lastPage) {
         // next_stage request
         seletedMoviePks.push(event.target.dataset.moviePk)
-        console.log('last')
         axios({
           method: 'get',
           url: `/movies/worldcup/next/`,
@@ -105,13 +95,11 @@
             newImg.style = 'border-radius:20px;'
 
             const parent = image1.parentNode
-            console.log(newImg)
             parent.replaceChild(newImg, image1)
           })
         })
       } else {
 
-      ///////////////////////////////////////////////////////
       // next_page request
       seletedMoviePks.push(event.target.dataset.moviePk)
       axios({
@@ -124,7 +112,6 @@
         }
       })
         .then((res) => {
-          // console.log(res)
           const movies = res.data
           moviePk = movies[0].pk
           moviePosterPath = movies[0].fields.poster_path

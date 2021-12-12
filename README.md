@@ -155,4 +155,3 @@ $ python manage.py runserver
   - Movies app 기본기능 구현
   - Profile 페이지 추가기능, 영화제목 검색기능 구현
   - 디자인 구성
-
